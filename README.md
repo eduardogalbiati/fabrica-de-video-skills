@@ -19,7 +19,7 @@ Tudo roda no seu computador. As animações são feitas em código (Remotion) e 
 | "quero outro formato" | `/fabrica-videos-formatos` | Tela dividida, rosto com janela, tela com rosto, tutorial mudo |
 | "faz a capa" | `/fabrica-videos-capa` | Capa 1080×1920 dentro da área que aparece no grid |
 | "fecha esse vídeo" | `/fabrica-videos-entrega` | Conferência de tamanho, codec e volume, capa e notas |
-| "cria a minha marca" | `/fabrica-videos-marca` | Suas cores, fontes e assinatura em todas as peças |
+| "cria a minha marca" | `/fabrica-videos-marca` | Suas cores, fontes e assinatura em todas as peças; e o estilo de movimento, à parte (`mini-action`, `orbita` ou `palco`) |
 
 Sem saber qual usar, comece por `/fabrica-videos`: ela pergunta o que você quer e chama a certa.
 
@@ -88,11 +88,27 @@ As skills oficiais do Remotion ajudam a IA a escrever animações melhores. Elas
 |---|---|---|
 | **Motor** | Peças de animação, formatos, scripts | `src/`, `scripts/` |
 | **Marca** | Cores, fontes, assinatura, nome, temas | `marca/` (a ativa) e `marcas/` (outras) |
+| **Estilo** | Como se move e se desenha: entrada, flutuação, perspectiva, brilho, fundo. Independe da marca | `estilos/` (`mini-action`, o padrão, `orbita` e `palco`) |
 | **Seus vídeos** | Um arquivo por vídeo, mais roteiro e storyboard | `src/videos/`, `roteiros/` |
 | **Skills** | Os guias que a IA segue | `.claude/skills/` |
 | **Trabalho** | Gravações e vídeos renderizados (fica fora do git) | `trabalho/` |
 
 O vídeo de exemplo (`src/videos/Exemplo.tsx`, com `roteiros/exemplo*`) mostra o caminho inteiro com um assunto fictício. É dele que se copia para começar.
+
+### Marca e estilo, separados
+
+A marca diz quem fala (cores, fontes, assinatura). O estilo diz como a tela se move: no `mini-action`, cada coisa entra com fade e uma subida curta e fica parada; no `orbita`, os cartões flutuam inclinados em perspectiva, com a borda acesa e uma rede de pontos no fundo; no `palco`, cartões foscos flutuam de frente sobre um piso quadriculado em perspectiva, com luz de cima e destaque em itálico. Qualquer marca combina com qualquer estilo, e o mesmo vídeo sai em qualquer um sem mudar uma linha:
+
+| Órbita | Palco |
+|---|---|
+| ![As mesmas peças no estilo órbita](docs/mostruario-orbita.jpg) | ![As mesmas peças no estilo palco](docs/mostruario-palco.jpg) |
+
+```bash
+npm run estilo -- ver orbita                                        # mostruário no estilo órbita
+npm run renderizar -- Exemplo trabalho/out/exemplo-orbita.mp4 estilo=orbita
+```
+
+Como criar um estilo novo: `estilos/README.md`.
 
 ## O que ela não faz
 
@@ -106,6 +122,7 @@ O vídeo de exemplo (`src/videos/Exemplo.tsx`, com `roteiros/exemplo*`) mostra o
 ```bash
 node ferramentas/verificar-guias.mjs       # todo caminho e comando citado nas skills existe?
 node ferramentas/verificar-vazamento.mjs   # algum dado pessoal ou caminho de máquina escapou?
+npm run retrato -- tirar antes             # antes de mexer no motor; depois: tirar depois e comparar antes depois
 ```
 
 ## Licenças de terceiros

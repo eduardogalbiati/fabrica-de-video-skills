@@ -1,4 +1,5 @@
 import { Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { aparece, clamp } from "./util";
 
@@ -18,8 +19,8 @@ export const TrocaPrints: React.FC<{
   const entra = interpolate(frame, [0, 10], [0, 1], clamp);
   const sai = saiEm === undefined ? 1 : interpolate(frame, [saiEm, saiEm + 8], [1, 0], clamp);
   return (
-    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top, height: altura, opacity: entra * sai }}>
-      <div style={{ width: "100%", height: "100%", padding: 12, borderRadius: ds.radius.lg, backgroundColor: ds.bg200 }}>
+    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top, height: altura, opacity: entra * sai, ...flutua(frame, `prints-${imagens[0]}`) }}>
+      <div style={{ width: "100%", height: "100%", padding: 12, borderRadius: ds.radius.lg, backgroundColor: ds.bg200, ...cartao(acento, ds.bg200) }}>
         <div style={{ width: "100%", height: "100%", borderRadius: ds.radius.lg - 12, overflow: "hidden", backgroundColor: "#fff" }}>
           <Img
             src={staticFile(imagens[idx])}

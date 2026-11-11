@@ -28,9 +28,10 @@ Só crie se nenhuma peça existente resolve com outras props.
    - posição absoluta dentro da área de 1080×960; margem lateral de 96 px (`ds.space[4]`);
    - só tokens de `src\animacoes\tema.ts` (`ds`, `tipo`, `pilares`); números em mono (`tipo.statXl`);
    - toda animação sai de `useCurrentFrame()` com `interpolate` (helpers `aparece`, `ease`, `clamp` em `util.tsx`); nada de animação CSS;
-   - movimento sóbrio: fade com subida curta; sem bounce, sem sombra em texto, sem gradiente.
+   - movimento sóbrio: fade com subida curta (o `aparece`); sem bounce, sem sombra em texto, sem gradiente;
+   - para obedecer ao estilo escolhido (`estilos\README.md`): cartão com `...cartao(acento)` e `...flutua(frame, "<semente>")` no fim do estilo dele, título com `...brilhoTitulo(acento)` (de `src\animacoes\estilo.ts`). No estilo padrão esses ajustes não mudam nada.
 3. **Exemplo no mostruário:** acrescente uma linha em `src\mostruario.tempos.json` (3 s depois da última, e some 3 em `duracaoFala`) e a entrada correspondente em `exemplos`, no `src\Mostruario.tsx`.
-4. **Conferir:** `npx tsc` e `npm run mostruario`. Olhe `docs\mostruario.jpg`: a peça nova aparece inteira, dentro das margens e com o texto cabendo?
+4. **Conferir:** `npx tsc` e `npm run mostruario`. Olhe `docs\mostruario.jpg`: a peça nova aparece inteira, dentro das margens e com o texto cabendo? Confira também noutro estilo: `npm run estilo -- ver orbita`.
 5. **Catálogo:** uma linha na tabela de `pecas.md` (na pasta da skill `fabrica-videos-peca`).
 6. Mostre a imagem a ele. Só depois use a peça no vídeo.
 

@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame } from "remotion";
+import { brilhoTitulo } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { aparece, Destaque, ease } from "./util";
 
@@ -27,7 +28,7 @@ export const TextoRiscado: React.FC<{
       <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top }}>
         <div style={{ ...grande, color: ds.ink, ...aparece(frame, 0) }}>{prefixo}</div>
         <div style={{ ...grande, color: ds.ink, opacity: esmaece, ...aparece(frame, riscaEm) }}>{riscado}</div>
-        <div style={{ ...grande, color: ds.ink, ...aparece(frame, trocaEm, 14, 50) }}>
+        <div style={{ ...grande, color: ds.ink, ...aparece(frame, trocaEm, 14, 50), ...brilhoTitulo(acento) }}>
           <Destaque texto={substituto} acento={acento} />
         </div>
       </div>
@@ -57,6 +58,7 @@ export const TextoRiscado: React.FC<{
             color: acento,
             opacity: entra,
             translate: `0px ${interpolate(entra, [0, 1], [60, 0])}px`,
+            ...brilhoTitulo(acento),
           }}
         >
           {substituto}

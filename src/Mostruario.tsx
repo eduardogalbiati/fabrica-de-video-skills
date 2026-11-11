@@ -17,6 +17,9 @@ import { Notificacao } from "./pecas/Notificacao";
 import { OlhoRiscado } from "./pecas/OlhoRiscado";
 import { Bisturi, nosDaRede, RedeNeural, type RedeProps } from "./pecas/RedeNeural";
 import { TelaDividida } from "./pecas/TelaDividida";
+import { JanelaAgente } from "./pecas/JanelaAgente";
+import { LinhaDePassos } from "./pecas/LinhaDePassos";
+import { OndaDeCorte } from "./pecas/OndaDeCorte";
 import { TelaSite } from "./pecas/TelaSite";
 import { Terminal } from "./pecas/Terminal";
 import { TextoRiscado } from "./pecas/TextoRiscado";
@@ -81,7 +84,62 @@ const exemplos: Record<string, (acento: string) => React.ReactNode> = {
   TelaSite: (acento) => (
     <TelaSite imagem="exemplo/pagina.png" url="exemplo.com" acento={acento} top={260} altura={560} inicio={2} rolagem={{ de: 0, ate: 60, inicio: 10, duracao: 30 }} zoom={{ escala: 1.5, x: 0.25, y: 0.35, inicio: 44, duracao: 18 }} clique={{ x: 300, y: 250, em: 66 }} />
   ),
+  LinhaDePassos: (acento) => (
+    <LinhaDePassos
+      acento={acento}
+      top={270}
+      espaco={140}
+      tamanho={48}
+      visiveis={3}
+      passos={[
+        { texto: "Grava no celular", em: 4 },
+        { texto: "Corta as pausas", em: 18 },
+        { texto: "Posso seguir?", pergunta: true, detalhe: "espera o ok", em: 32 },
+        { texto: "Entrega o vídeo", em: 50 },
+      ]}
+    />
+  ),
+  JanelaAgente: (acento) => (
+    <JanelaAgente
+      titulo="claude · meu-projeto"
+      acento={acento}
+      top={250}
+      altura={640}
+      digitando={[{ texto: "limpa essa gravação", de: 0, ate: 8, letrasPorQuadro: 2.6 }]}
+      linhas={[
+        { tipo: "voce", texto: "limpa essa gravação", em: 8 },
+        { tipo: "ferramenta", nome: "Bash", texto: "npm run cortar -- analisar gravacao.mp4", em: 18, fimEm: 40 },
+        { tipo: "saida", texto: "25,7 s → 10,8 s (5 cortes)", em: 36 },
+        { tipo: "pergunta", texto: "Aplico os cortes?", opcoes: ["Sim", "Não"], escolha: 0, escolhaEm: 66, em: 46 },
+      ]}
+      trabalhando={[{ de: 18, ate: 40 }]}
+    />
+  ),
+  OndaDeCorte: (acento) => (
+    <OndaDeCorte
+      amostras={ONDA_DE_EXEMPLO}
+      passo={0.1}
+      fica={[
+        { de: 2, ate: 9 },
+        { de: 12, ate: 20 },
+        { de: 24, ate: 28 },
+      ]}
+      rotulos={[{ em: 22, texto: "pausa · 4 s" }]}
+      acento={acento}
+      top={300}
+      altura={360}
+      juntaEm={30}
+      inicio={2}
+    />
+  ),
 };
+
+// onda de exemplo (ilustração, não é gravação de ninguém): fala com pausas
+const ONDA_DE_EXEMPLO = Array.from({ length: 300 }, (_, i) => {
+  const s = i / 10;
+  const falando = (s > 2 && s < 9) || (s > 12 && s < 20) || (s > 24 && s < 28);
+  return falando ? 0.35 + 0.6 * Math.abs(Math.sin(i * 0.9) * Math.cos(i * 0.23)) : 0.04 + 0.04 * Math.abs(Math.sin(i));
+});
 
 export const Mostruario: React.FC<Props> = ({ pilar, mostrarGuia }) => {
   const { fps } = useVideoConfig();

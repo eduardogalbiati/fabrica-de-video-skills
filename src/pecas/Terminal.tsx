@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { clamp } from "./util";
 
@@ -28,6 +29,8 @@ export const Terminal: React.FC<{
         border: `2px solid ${ds.line}`,
         overflow: "hidden",
         opacity: interpolate(frame, [inicio, inicio + 10], [0, 1], clamp),
+        ...cartao(acento),
+        ...flutua(frame, `terminal-${titulo}`),
       }}
     >
       <div style={{ height: 56, display: "flex", alignItems: "center", gap: 10, padding: "0 24px", backgroundColor: ds.bg200 }}>

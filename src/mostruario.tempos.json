@@ -18,5 +18,8 @@
   "ChatIA": 48,
   "Terminal": 51,
   "TelaSite": 54,
-  "duracaoFala": 57
+  "LinhaDePassos": 57,
+  "JanelaAgente": 60,
+  "OndaDeCorte": 63,
+  "duracaoFala": 66
 }

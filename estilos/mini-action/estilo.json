@@ -1,0 +1,13 @@
+{
+  "nome": "Mini-action",
+  "descricao": "Movimentos curtos e sóbrios: cada coisa entra com fade e uma subida curta e fica parada. Cartões chapados, um único halo atrás do título, fundo parado com estrelas sutis.",
+  "movimento": {
+    "curva": [0.16, 1, 0.3, 1],
+    "entrada": { "duracao": 14, "subida": 24, "escala": 1, "desfoque": 0 }
+  },
+  "flutuacao": { "amplitude": 0, "inclinacao": 0, "ciclo": 5, "perspectiva": 1400 },
+  "fundo": { "tipo": "estrelas" },
+  "cartao": { "brilho": 0, "transparencia": 0, "bordaNoAcento": false },
+  "halo": 1,
+  "brilhoTitulo": 0
+}

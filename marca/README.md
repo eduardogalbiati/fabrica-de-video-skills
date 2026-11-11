@@ -34,3 +34,4 @@ Sai `trabalho/out/mostruario-<nome>.jpg`. Para tornar uma marca ativa: `npm run 
 ## Regras
 - Mudou a marca? Rode `npx tsc` e `npm run mostruario` e olhe a imagem: todas as peças mudam juntas.
 - O tamanho dos textos, os espaços, os cantos e as zonas do Instagram ficam no `tema.ts`: são do motor, não da marca.
+- O jeito de mover e de desenhar (entrada, flutuação, perspectiva, brilho, fundo) é do **estilo**, em `estilos/`, e combina com qualquer marca. Ver `estilos/README.md`.

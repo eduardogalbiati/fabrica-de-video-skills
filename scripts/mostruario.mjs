@@ -11,11 +11,12 @@ import { spawnSync } from "node:child_process";
 import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { empacotar, MARCA_DE_TESTE } from "./empacotar.mjs";
+import { empacotar, ESTILO_DE_TESTE, MARCA_DE_TESTE } from "./empacotar.mjs";
 import { CATALOGO, RAIZ, SAIDA } from "./pastas.mjs";
 
 const modo = process.argv[2] ?? "pecas";
-const sufixo = MARCA_DE_TESTE ? `-${MARCA_DE_TESTE}` : "";
+// com marca ou estilo de teste, a imagem ganha o nome deles e não substitui a do catálogo
+const sufixo = `${MARCA_DE_TESTE ? `-${MARCA_DE_TESTE}` : ""}${ESTILO_DE_TESTE ? `-estilo-${ESTILO_DE_TESTE}` : ""}`;
 console.log("Empacotando o projeto...");
 const serveUrl = await empacotar();
 const tmp = mkdtempSync(path.join(os.tmpdir(), "mostruario-"));
@@ -61,8 +62,8 @@ try {
     // só a metade de cima do quadro (é onde as peças vivem)
     const saida = path.join(SAIDA, `mostruario${sufixo}.jpg`);
     juntar(5, nomes.length, "crop=iw:ih/2:0:0,", saida);
-    if (MARCA_DE_TESTE) {
-      console.log(`\nMostruário da marca de teste: ${saida}  (5 por linha, na ordem da lista acima)`);
+    if (MARCA_DE_TESTE || ESTILO_DE_TESTE) {
+      console.log(`\nMostruário de teste: ${saida}  (5 por linha, na ordem da lista acima)`);
     } else {
       mkdirSync(CATALOGO, { recursive: true });
       const noCatalogo = path.join(CATALOGO, "mostruario.jpg");
