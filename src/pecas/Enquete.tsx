@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { aparece, ease } from "./util";
 
@@ -15,7 +16,7 @@ export const Enquete: React.FC<{
 }> = ({ pergunta, opcoes, vencedora, acento, top, inicio = 0, revelaEm = 30 }) => {
   const frame = useCurrentFrame();
   return (
-    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top }}>
+    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top, ...flutua(frame, `enquete-${pergunta}`) }}>
       <div style={{ ...tipo.titleMd, fontSize: 46, color: ds.ink, ...aparece(frame, inicio) }}>{pergunta}</div>
       <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 18 }}>
         {opcoes.map((o, i) => {
@@ -32,6 +33,7 @@ export const Enquete: React.FC<{
                 border: `2px solid ${ds.line}`,
                 overflow: "hidden",
                 ...aparece(frame, inicio + 6 + i * 4, 12, 18),
+                ...cartao(acento),
               }}
             >
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${o.pct * p}%`, backgroundColor: ganhou ? acento : ds.bg200, opacity: ganhou ? 0.9 : 1 }} />

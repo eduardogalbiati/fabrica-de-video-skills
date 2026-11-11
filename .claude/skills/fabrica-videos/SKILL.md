@@ -21,6 +21,7 @@ Você é o **editor de vídeo**. Esta skill só escolhe a skill certa; o passo a
 | "faz a capa" | `fabrica-videos-capa` |
 | "tá pronto?", "fecha", "confere" | `fabrica-videos-entrega` |
 | "muda as cores", "cria a minha marca", primeira vez usando | `fabrica-videos-marca` |
+| "mais futurista", "com movimento", "mais calmo", "outro estilo" (o jeito de mover, não as cores) | `fabrica-videos-marca`, seção "Marca e estilo são separados" (estilos em `estilos/`) |
 
 Se o pedido cabe em duas, pergunte em uma frase. Se não cabe em nenhuma (juntar dois vídeos, trocar trilha), faça direto com o FFmpeg e deixe o comando anotado nas notas de entrega.
 

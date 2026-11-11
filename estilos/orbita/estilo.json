@@ -1,0 +1,13 @@
+{
+  "nome": "Órbita",
+  "descricao": "Interface flutuando no espaço: os cartões entram vindo de trás, ficam inclinados em perspectiva e flutuam devagar, com a borda acesa na cor do tema. Títulos com um brilho leve. Ao fundo, uma rede de pontos e linhas que deriva.",
+  "movimento": {
+    "curva": [0.22, 1, 0.36, 1],
+    "entrada": { "duracao": 20, "subida": 0, "escala": 0.88, "desfoque": 12 }
+  },
+  "flutuacao": { "amplitude": 12, "inclinacao": 10, "ciclo": 5, "perspectiva": 1400 },
+  "fundo": { "tipo": "rede", "pontos": 46, "deriva": 22 },
+  "cartao": { "brilho": 0.6, "transparencia": 0.25, "bordaNoAcento": true },
+  "halo": 1.5,
+  "brilhoTitulo": 0.5
+}

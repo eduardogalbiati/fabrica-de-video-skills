@@ -1,0 +1,14 @@
+{
+  "nome": "Palco",
+  "descricao": "Palco escuro: piso quadriculado em perspectiva sumindo no horizonte, luz suave vinda de cima e partículas desfocadas no ar. Os cartões são janelas escuras e foscas que flutuam de frente, com sombra; as palavras em destaque viram itálico.",
+  "movimento": {
+    "curva": [0.2, 0.9, 0.3, 1],
+    "entrada": { "duracao": 16, "subida": 12, "escala": 0.94, "desfoque": 6 }
+  },
+  "flutuacao": { "amplitude": 6, "inclinacao": 0, "ciclo": 6, "perspectiva": 1600 },
+  "fundo": { "tipo": "palco", "particulas": 16 },
+  "cartao": { "transparencia": 0.12, "bordaClara": true, "sombra": 1, "realce": 1 },
+  "halo": 0.5,
+  "brilhoTitulo": 0,
+  "destaque": "italico"
+}

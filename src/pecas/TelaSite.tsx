@@ -1,4 +1,5 @@
 import { Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { clamp, ease } from "./util";
 
@@ -40,6 +41,8 @@ export const TelaSite: React.FC<{
         overflow: "hidden",
         opacity: interpolate(frame, [inicio, inicio + 10], [0, 1], clamp),
         translate: `0px ${interpolate(frame, [inicio, inicio + 12], [20, 0], ease)}px`,
+        ...cartao(acento),
+        ...flutua(frame, `site-${url}`),
       }}
     >
       <div style={{ height: BARRA, display: "flex", alignItems: "center", gap: 10, padding: "0 22px", backgroundColor: ds.bg200 }}>

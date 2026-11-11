@@ -1,21 +1,38 @@
 import { Easing, interpolate } from "remotion";
-import { ds, tipo } from "../animacoes/tema";
+import { brilhoTitulo, destaqueEstilo, estilo } from "../animacoes/estilo";
+import { ds, SUAVE, tipo } from "../animacoes/tema";
 
-export const ease = { easing: Easing.bezier(0.16, 1, 0.3, 1), extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+// A curva e o jeito de entrar vêm do ESTILO ativo (animacoes/estilo.ts); no mini-action: fade + subida curta.
+export const ease = { easing: Easing.bezier(...SUAVE), extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 export const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
-// Fade + subida curta a partir do frame `t`
-export const aparece = (frame: number, t: number, dur = 14, dist = 24): React.CSSProperties => ({
-  opacity: interpolate(frame, [t, t + dur], [0, 1], ease),
-  translate: `0px ${interpolate(frame, [t, t + dur], [dist, 0], ease)}px`,
-});
+const ENTRADA = estilo.movimento.entrada;
+const FATOR_DURACAO = ENTRADA.duracao / 14; // 14 quadros e 24 px são a referência do mini-action
+const FATOR_SUBIDA = ENTRADA.subida / 24;
+
+// Entrada a partir do frame `t`: fade + subida curta. O estilo pode alongar, trocar a subida por
+// aproximação (escala) e desfocar no começo; `dur` e `dist` continuam valendo, proporcionais ao estilo.
+export const aparece = (frame: number, t: number, dur = 14, dist = 24): React.CSSProperties => {
+  const d = dur * FATOR_DURACAO;
+  const s = dist * FATOR_SUBIDA;
+  const r: React.CSSProperties = {
+    opacity: interpolate(frame, [t, t + d], [0, 1], ease),
+    translate: `0px ${interpolate(frame, [t, t + d], [s, 0], ease)}px`,
+  };
+  if (ENTRADA.escala !== undefined && ENTRADA.escala !== 1) r.scale = interpolate(frame, [t, t + d], [ENTRADA.escala, 1], ease);
+  if (ENTRADA.desfoque) {
+    const b = interpolate(frame, [t, t + d], [ENTRADA.desfoque, 0], ease);
+    if (b > 0.01) r.filter = `blur(${b.toFixed(2)}px)`;
+  }
+  return r;
+};
 
 // "*palavra*" → palavra na cor do acento
 export const Destaque: React.FC<{ texto: string; acento: string }> = ({ texto, acento }) => (
   <>
     {texto.split(/(\*[^*]+\*)/).map((t, i) =>
       t.startsWith("*") ? (
-        <span key={i} style={{ color: acento }}>
+        <span key={i} style={destaqueEstilo(acento)}>
           {t.slice(1, -1)}
         </span>
       ) : (
@@ -44,7 +61,7 @@ export const Halo: React.FC<{ x: number; y: number; w: number; h: number; cor: s
       borderRadius: 999,
       backgroundColor: cor,
       filter: "blur(90px)",
-      opacity: intensidade,
+      opacity: estilo.halo === undefined || estilo.halo === 1 ? intensidade : Math.min(1, intensidade * estilo.halo),
     }}
   />
 );
@@ -71,6 +88,7 @@ export const TituloCena: React.FC<{
       color: ds.ink,
       textAlign: centro ? "center" : "left",
       ...aparece(frame, t),
+      ...brilhoTitulo(acento),
     }}
   >
     <Destaque texto={texto} acento={acento} />

@@ -42,6 +42,12 @@ Pergunte só o que falta, numa conversa curta:
 4. Olhe a imagem e mostre à pessoa. Ajuste as respostas e repita até ela aprovar.
 5. Só com a aprovação: `npm run marca -- usar <nome>` torna a marca ativa (a anterior fica guardada em `marcas\_anterior-<data>\`). Depois, `npx tsc`.
 
+## Marca e estilo são separados
+A marca é quem fala (cores, fontes, assinatura, temas). O **estilo** é como a tela se move e se desenha: entrada, flutuação, perspectiva, brilho, fundo. Mora em `estilos\<nome>\` e **combina com qualquer marca**. Hoje: `mini-action` (o padrão: fade com subida curta, cartões chapados, fundo parado), `orbita` (cartões flutuando em perspectiva, borda acesa, rede de pontos no fundo) e `palco` (cartões foscos de frente sobre um piso quadriculado em perspectiva, luz de cima, destaque em itálico).
+- Quando a pessoa pedir "mais futurista", "mais calmo", "com movimento" ou "igual ao de fulano, mas com as minhas cores", o pedido costuma ser de **estilo**, não de marca: mostre `npm run estilo -- ver <nome>` antes de mexer nas cores.
+- Mesmo vídeo noutro estilo, sem trocar nada do que está ativo: `npm run renderizar -- <Id> <saída.mp4> estilo=<nome>` (e `marca=<nome>` para trocar a marca junto).
+- Estilo novo: siga `estilos\README.md` (copiar uma pasta, mudar os números, conferir o mostruário e o retrato). A regra de copiar o estilo geral e não a identidade de outra pessoa vale igual.
+
 ## Além das cores: a voz
 A marca também tem regras de texto (o que a pessoa nunca diz, o CTA preferido, o tamanho das frases). Anote as da pessoa em `marcas\<nome>\voz.md` e siga nos roteiros. Esse arquivo ainda não é lido por script nenhum.
 

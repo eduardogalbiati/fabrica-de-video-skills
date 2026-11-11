@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { ease } from "./util";
 
@@ -33,6 +34,8 @@ export const Notificacao: React.FC<{
         border: `2px solid ${ds.line}`,
         opacity: entra * sai,
         translate: `0px ${interpolate(entra, [0, 1], [-28, 0])}px`,
+        ...cartao(acento),
+        ...flutua(frame, `notificacao-${titulo}`),
       }}
     >
       <div style={{ flex: "none", width: 72, height: 72, borderRadius: ds.radius.sm * 2, backgroundColor: acento }} />

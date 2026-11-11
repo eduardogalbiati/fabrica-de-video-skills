@@ -5,6 +5,7 @@ import { random } from "remotion";
 import { z } from "zod";
 import { fonteBody, fonteDisplay, fonteMono } from "../../marca/fontes";
 import dadosDaMarca from "../../marca/marca.json";
+import dadosDoEstilo from "../../estilos/ativo";
 
 export { fonteBody, fonteDisplay, fonteMono };
 
@@ -73,4 +74,5 @@ export const estrelas = (semente: string, n = 50, largura = 1080, altura = 1920)
   }));
 
 // Curva "suave e decidida" usada nas entradas
-export const SUAVE = [0.16, 1, 0.3, 1] as const;
+// (vem do ESTILO ativo, estilos/ativo.ts; no mini-action é [0.16, 1, 0.3, 1]. O resto do estilo: animacoes/estilo.ts)
+export const SUAVE = dadosDoEstilo.movimento.curva as unknown as readonly [number, number, number, number];

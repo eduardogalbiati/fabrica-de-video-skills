@@ -1,14 +1,27 @@
 import { AbsoluteFill } from "remotion";
+import { estilo } from "./estilo";
+import { PalcoDeFundo } from "./PalcoDeFundo";
+import { RedeDeFundo } from "./RedeDeFundo";
 import { ds, estrelas, marca, tipo, zonasReels as z } from "./tema";
 
-// Fundo noite com estrelas sutis
+// Fundo na cor de fundo da marca. O desenho por cima é do ESTILO (fundo.tipo):
+//   "estrelas" (mini-action) estrelas sutis paradas, se a marca permitir (fundo.estrelas)
+//   "rede"                   pontos e linhas que derivam devagar
+//   "palco"                  piso quadriculado em perspectiva, luz de cima e partículas desfocadas
+//   "liso"                   nada
 export const FundoNoite: React.FC<{ semente?: string; altura?: number }> = ({ semente = "ceu", altura = 1920 }) => (
   <AbsoluteFill style={{ backgroundColor: ds.bg000 }}>
-    <svg width={1080} height={altura} style={{ position: "absolute", inset: 0 }}>
-      {estrelas(semente, 50, 1080, altura).map((e, i) => (
-        <circle key={i} cx={e.x} cy={e.y} r={e.r} fill={ds.ink} opacity={e.o} />
-      ))}
-    </svg>
+    {estilo.fundo?.tipo === "rede" ? (
+      <RedeDeFundo semente={semente} altura={altura} pontos={estilo.fundo.pontos} deriva={estilo.fundo.deriva} />
+    ) : estilo.fundo?.tipo === "palco" ? (
+      <PalcoDeFundo semente={semente} altura={altura} particulas={estilo.fundo.particulas} />
+    ) : estilo.fundo?.tipo === "liso" ? null : (
+      <svg width={1080} height={altura} style={{ position: "absolute", inset: 0 }}>
+        {estrelas(semente, 50, 1080, altura).map((e, i) => (
+          <circle key={i} cx={e.x} cy={e.y} r={e.r} fill={ds.ink} opacity={e.o} />
+        ))}
+      </svg>
+    )}
   </AbsoluteFill>
 );
 

@@ -2,13 +2,13 @@
 // Serve para conferir sem assistir: nada em vermelho, nada sobreposto, textos cabendo.
 // Uso: npm run folha -- <IdDaComposicao> <src/videos/slug.tempos.json> [props.json] [sem-guia]
 // Saída: <pasta de trabalho>/out/folha-<Id>.jpg
-import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { PUBLICO, RAIZ, SAIDA } from "./pastas.mjs";
+import { empacotar } from "./empacotar.mjs";
+import { SAIDA } from "./pastas.mjs";
 
 // "sem-guia" vai sem os dois traços: no PowerShell o npm engole opções que começam com "--".
 const ehSemGuia = (a) => a === "sem-guia" || a === "--sem-guia";
@@ -25,7 +25,8 @@ const extras = propsArq ? JSON.parse(readFileSync(propsArq, "utf8")) : {};
 const inputProps = { ...extras, tempos: extras.tempos ?? tempos, mostrarGuia: !semGuia };
 
 console.log("Empacotando o projeto...");
-const serveUrl = await bundle({ entryPoint: path.join(RAIZ, "src", "index.ts"), publicDir: PUBLICO });
+// respeita FABRICA_MARCA e FABRICA_ESTILO (folha de um vídeo noutra marca ou noutro estilo)
+const serveUrl = await empacotar();
 const composition = await selectComposition({ serveUrl, id, inputProps });
 const { fps, durationInFrames } = composition;
 

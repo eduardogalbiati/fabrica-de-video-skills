@@ -4,15 +4,16 @@ Vídeos verticais criados em código com Remotion 4 + React + TypeScript. Você 
 
 > Não sabe por onde começar? Leia `.claude/skills/fabrica-videos/SKILL.md`: ela diz qual skill serve para cada pedido.
 
-## Três camadas
+## Quatro camadas
 
 | Camada | Onde | Regra |
 |---|---|---|
-| Motor | `src/animacoes/`, `src/pecas/`, `src/formatos/`, `src/Root.tsx`, `scripts/` | Não cita pessoa, marca nem vídeo |
-| Marca | `marca/` (`marca.json` + `fontes.ts`) | Tudo que muda de pessoa para pessoa na aparência |
+| Motor | `src/animacoes/`, `src/pecas/`, `src/formatos/`, `src/Root.tsx`, `scripts/` | Não cita pessoa, marca, estilo nem vídeo |
+| Marca | `marca/` (`marca.json` + `fontes.ts`) | Quem fala: cores, fontes, assinatura, nome, temas |
+| Estilo | `estilos/<nome>/` (o ativo em `estilos/ativo.ts`) | Como se move e se desenha: entrada, flutuação, perspectiva, brilho, fundo. **Independe da marca** |
 | Vídeos | `src/videos/`, `roteiros/`, `legendas/`, `cortes/` | Um slug por vídeo; registrados em `src/videos/index.tsx` |
 
-O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, `tipo`, `marca`, `PILAR_PADRAO`). **Nunca escreva cor em `#hex`, nome de fonte, nome de pessoa ou site direto numa peça.**
+O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, `tipo`, `marca`, `PILAR_PADRAO`) e o estilo por `src/animacoes/estilo.ts` (`estilo`, `cartao`, `flutua`, `brilhoTitulo`). **Nunca escreva cor em `#hex`, nome de fonte, nome de pessoa ou site direto numa peça.** Qualquer marca combina com qualquer estilo; detalhes em `estilos/README.md`.
 
 ## Onde fica cada arquivo
 
@@ -25,9 +26,9 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 
 - Formato padrão: vertical 9:16, 1080×1920, 30 fps (`VERTICAL`, em `src/formato.ts`).
 - **Uma cor de acento por vídeo**, escolhida pelo prop `pilar` (um tema da marca). `*palavra*` num texto = palavra-chave na cor do acento.
-- Números sempre na fonte mono. Cartões em `bg100` com borda `line`.
+- Números sempre na fonte mono. Cartões em `bg100` com borda `line`, sempre com `...cartao(acento)` e `...flutua(frame, semente)` no fim do estilo, e títulos com `...brilhoTitulo(acento)`: assim a peça obedece ao estilo escolhido.
 - Zonas cobertas pela interface do Reels: 160 px em cima, 320 px embaixo, 96 px nas laterais e a coluna de botões à direita (x > 930, abaixo de y 1080). Nada importante nelas. `mostrarGuia` liga as zonas para conferir.
-- Animações sóbrias: fade com subida curta. Sem bounce, sem sombra em texto, sem partículas.
+- O movimento é do estilo. No padrão (`mini-action`): fade com subida curta, sem bounce, sem sombra em texto, sem partículas. Outros estilos (como `orbita`) trazem perspectiva, flutuação e brilho; as regras de cada um estão no `README.md` da pasta dele.
 - Toda animação vem de `useCurrentFrame()` com `interpolate`; nunca animação CSS nem `setTimeout`.
 - Cada cena é um componente próprio (hooks dentro de funções de um objeto do componente pai contam o quadro errado).
 
@@ -57,9 +58,12 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 | Print de um site | `npm run print-site -- <endereço> <slug>` |
 | Capa | `npm run capa -- <slug> "<vídeo ou foto>"`, depois `npx remotion still Capa ...` |
 | Marcas | `npm run marca -- listar` (e `criar`, `ver`, `usar`, `do-site`, `do-video`) |
+| Estilos | `npm run estilo -- listar` (e `ver <nome>`, `usar <nome>`) |
 | Conferência final e notas de entrega | `npm run conferir -- "<vídeo final>" <slug>` |
 | Volume em −14 LUFS | `npm run nivelar -- "<vídeo>"` |
 | Renderizar | `npx remotion render <Id> "trabalho/out/<nome>.mp4"` |
+| Renderizar com outra marca e/ou outro estilo (sem trocar os ativos) | `npm run renderizar -- <Id> "trabalho/out/<nome>.mp4" marca=<nome> estilo=<nome> [mudo]` |
+| Retrato do motor (antes e depois de uma mudança) | `npm run retrato -- tirar <nome>`, depois `npm run retrato -- comparar <a> <b>` |
 
 - Nas skills os caminhos aparecem com `\` (Windows). No macOS e no Linux, use `/`.
 - Não passe JSON direto em `--props='{...}'` no PowerShell: grave num arquivo e use `--props=arquivo.json`.
@@ -67,4 +71,5 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 ## Antes de mudar o motor
 
 - Peça nova: siga a skill `fabrica-videos-peca` (arquivo em `src/pecas/`, exemplo no mostruário, linha no catálogo).
+- Antes de mexer: `npm run retrato -- tirar antes`. Depois: `npm run retrato -- tirar depois` e `npm run retrato -- comparar antes depois` (o que não era para mudar tem de sair igual, byte a byte).
 - Depois de qualquer mudança: `npx tsc`, `npm run mostruario` e `node ferramentas/verificar-guias.mjs`.

@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame } from "remotion";
+import { cartao, flutua } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { aparece, clamp } from "./util";
 
@@ -21,7 +22,7 @@ export const ChatIA: React.FC<{
   const responde = respondeEm ?? fimDaDigitacao + 10;
   const cursor = letras < pedido.length && Math.floor(frame / 8) % 2 === 0;
   return (
-    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top, display: "flex", flexDirection: "column", gap: 26 }}>
+    <div style={{ position: "absolute", left: ds.space[4], right: ds.space[4], top, display: "flex", flexDirection: "column", gap: 26, ...flutua(frame, `chat-${pedido}`) }}>
       <div
         style={{
           alignSelf: "flex-end",
@@ -32,6 +33,7 @@ export const ChatIA: React.FC<{
           ...tipo.bodyLg,
           color: ds.ink,
           opacity: interpolate(frame, [inicio, inicio + 8], [0, 1], clamp),
+          ...cartao(acento, ds.bg200),
         }}
       >
         {pedido.slice(0, letras)}
@@ -39,7 +41,7 @@ export const ChatIA: React.FC<{
       </div>
       <div style={{ display: "flex", gap: 22, alignItems: "flex-start", ...aparece(frame, responde, 12, 18) }}>
         <div style={{ flex: "none", width: 56, height: 56, borderRadius: ds.radius.sm * 2, backgroundColor: acento }} />
-        <div style={{ flex: 1, padding: "22px 30px", borderRadius: ds.radius.md, backgroundColor: ds.bg100, border: `2px solid ${ds.line}` }}>
+        <div style={{ flex: 1, padding: "22px 30px", borderRadius: ds.radius.md, backgroundColor: ds.bg100, border: `2px solid ${ds.line}`, ...cartao(acento) }}>
           <div style={{ ...tipo.chapter, fontSize: 22, color: ds.inkMuted }}>{nomeIA}</div>
           {resposta.map((linha, i) => (
             <div key={i} style={{ ...tipo.bodyLg, color: ds.ink, marginTop: 10, ...aparece(frame, responde + 8 + i * 8, 10, 12) }}>
