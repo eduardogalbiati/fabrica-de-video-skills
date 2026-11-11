@@ -1,0 +1,58 @@
+import { Video } from "@remotion/media";
+import { AbsoluteFill, Sequence, staticFile } from "remotion";
+import { z } from "zod";
+import { GuiaZonaSegura } from "../animacoes/Base";
+import { ds, PILAR_PADRAO, pilares, pilarSchema, tipo } from "../animacoes/tema";
+import { LegendaQueimada, paginaLegendaSchema, posicaoLegendaSchema } from "../pecas/LegendaQueimada";
+
+/*
+  Vídeo de rosto em tela cheia + legenda queimada no padrão da marca (sem animações).
+  Não precisa de código por vídeo: as props vêm de um arquivo gerado pelo `npm run paginar`:
+    npm run paginar -- legendas\<nome>.json "<vídeo>"
+    npx remotion render VideoLegendado "<saída>.mp4" --props=legendas\<nome>.legenda.json
+  Vídeo e legenda ficam na mesma <Sequence>, para andarem juntos se alguém mover ou aparar o trecho.
+*/
+export const videoLegendadoSchema = z.object({
+  pilar: pilarSchema,
+  video: z.string(),
+  duracaoSeg: z.number().min(0.5),
+  enquadramento: z.string(), // posição do vídeo no quadro (CSS object-position), ex.: "50% 50%"
+  posicao: posicaoLegendaSchema,
+  mostrarGuia: z.boolean(),
+  paginas: z.array(paginaLegendaSchema),
+});
+type Props = z.infer<typeof videoLegendadoSchema>;
+
+export const VideoLegendado: React.FC<Props> = ({ pilar, video, enquadramento, posicao, mostrarGuia, paginas }) => {
+  const { acento } = pilares[pilar];
+  return (
+    <AbsoluteFill style={{ backgroundColor: ds.bg000 }}>
+      <Sequence name="Fala">
+        {video ? (
+          <Video src={staticFile(video)} objectFit="cover" style={{ width: "100%", height: "100%", objectPosition: enquadramento }} />
+        ) : (
+          <AbsoluteFill style={{ backgroundColor: ds.bg200, justifyContent: "center", alignItems: "center", ...tipo.bodyLg, color: ds.inkMuted }}>
+            vídeo: rosto, tela cheia
+          </AbsoluteFill>
+        )}
+        <LegendaQueimada paginas={paginas} acento={acento} posicao={posicao} />
+      </Sequence>
+      {mostrarGuia ? <GuiaZonaSegura /> : null}
+    </AbsoluteFill>
+  );
+};
+
+export const videoLegendadoPadrao: Props = {
+  pilar: PILAR_PADRAO,
+  video: "",
+  duracaoSeg: 6,
+  enquadramento: "50% 50%",
+  posicao: "terco-superior",
+  mostrarGuia: false,
+  paginas: [
+    { de: 0.2, ate: 2.6, texto: "Esta é a *legenda* queimada no vídeo" },
+    { de: 2.6, ate: 5.6, texto: "Frase inteira, com uma *palavra-chave* em destaque na cor do tema" },
+  ],
+};
+
+export const duracaoVideoLegendado = (p: Props, fps: number) => Math.max(1, Math.round(p.duracaoSeg * fps));

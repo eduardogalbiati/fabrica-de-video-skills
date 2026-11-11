@@ -1,0 +1,6 @@
+node_modules
+trabalho
+out
+.DS_Store
+.vazamento.local.txt
+marcas/_anterior-*

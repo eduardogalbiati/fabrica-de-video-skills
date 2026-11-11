@@ -1,0 +1,14 @@
+{
+  "nome": "Aurora (teste)",
+  "assinatura": "@aurora.exemplo",
+  "pessoa": { "nome": "Aurora Lima", "cargo": "Nutricionista" },
+  "fundo": "claro",
+  "acento": "#c2255c",
+  "temas": [
+    { "chave": "receitas", "nome": "Receitas", "acento": "#c2255c" },
+    { "chave": "ciencia", "nome": "Ciência", "acento": "#1971c2" }
+  ],
+  "fontes": { "titulos": "DM Serif Display", "texto": "DM Sans", "mono": "DM Mono" },
+  "estrelas": false,
+  "encerramento": { "frase": "Receita nova toda terça", "cta": "Me segue" }
+}

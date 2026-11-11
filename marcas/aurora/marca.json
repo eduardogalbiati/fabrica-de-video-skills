@@ -1,0 +1,42 @@
+{
+  "nome": "Aurora (teste)",
+  "referencia": "",
+  "versao": "criada em 2026-11-11",
+  "site": "@aurora.exemplo",
+  "pessoa": {
+    "nome": "Aurora Lima",
+    "cargo": "Nutricionista"
+  },
+  "cores": {
+    "bg000": "#f7f7f5",
+    "bg100": "#ececea",
+    "bg200": "#dededd",
+    "ink": "#16161a",
+    "inkMuted": "#6c6c6d",
+    "line": "#16161a1f",
+    "danger": "#c62828"
+  },
+  "temas": {
+    "receitas": {
+      "acento": "#c2255c",
+      "soft": "#921c45",
+      "nome": "Receitas",
+      "textoNoBotao": "bg000"
+    },
+    "ciencia": {
+      "acento": "#1971c2",
+      "soft": "#135592",
+      "nome": "Ciência",
+      "textoNoBotao": "bg000"
+    }
+  },
+  "temaPadrao": "receitas",
+  "fundo": {
+    "estrelas": false
+  },
+  "encerramento": {
+    "tema": "receitas",
+    "frase": "Receita nova toda terça",
+    "cta": "Me segue"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "videos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/preparar.mjs",
+    "dev": "remotion studio",
+    "render": "remotion render",
+    "upgrade": "remotion upgrade",
+    "preparar": "node scripts/preparar.mjs",
+    "legendar": "node scripts/legendar.mjs",
+    "batidas": "node scripts/batidas.mjs",
+    "converter": "node scripts/converter.mjs",
+    "folha": "node scripts/folha.mjs",
+    "falas": "node scripts/falas.mjs",
+    "cortar": "node scripts/cortar.mjs",
+    "paginar": "node scripts/paginar.mjs",
+    "conferir": "node scripts/conferir.mjs",
+    "nivelar": "node scripts/nivelar.mjs",
+    "mostruario": "node scripts/mostruario.mjs",
+    "print-site": "node scripts/print-site.mjs",
+    "capa": "node scripts/capa.mjs",
+    "marca": "node scripts/marca.mjs",
+    "fala": "node scripts/fala.mjs",
+    "montar": "node scripts/montar.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.2.0",
+    "@mediabunny/server": "1.64.0",
+    "@remotion/bundler": "4.0.541",
+    "@remotion/captions": "4.0.541",
+    "@remotion/cli": "4.0.541",
+    "@remotion/google-fonts": "4.0.541",
+    "@remotion/media": "4.0.541",
+    "@remotion/renderer": "4.0.541",
+    "@remotion/whisper-webgpu": "4.0.541",
+    "@remotion/zod-types": "4.0.541",
+    "mediabunny": "1.64.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.541",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "nome": "Neutra (exemplo)",
+  "referencia": "",
+  "versao": "exemplo de 2026-11-10",
+  "site": "@seunome",
+  "pessoa": { "nome": "Seu Nome", "cargo": "O que você faz" },
+  "cores": {
+    "bg000": "#101014",
+    "bg100": "#1a1a20",
+    "bg200": "#26262e",
+    "ink": "#f4f4f5",
+    "inkMuted": "#a1a1aa",
+    "line": "#f4f4f51f",
+    "danger": "#ef4444"
+  },
+  "temas": {
+    "principal": { "acento": "#22c55e", "soft": "#86efac", "nome": "Canal", "textoNoBotao": "bg000" },
+    "alerta": { "acento": "#f59e0b", "soft": "#fcd34d", "nome": "Avisos", "textoNoBotao": "bg000" }
+  },
+  "temaPadrao": "principal",
+  "fundo": { "estrelas": false },
+  "encerramento": { "tema": "principal", "frase": "Vídeo novo toda semana", "cta": "Me segue" }
+}
