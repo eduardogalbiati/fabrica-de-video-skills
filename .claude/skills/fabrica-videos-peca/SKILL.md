@@ -14,7 +14,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. Antes
 - "Cria uma peça de [algo que não existe]".
 
 ## 1. Usar uma peça que já existe
-1. Abra `pecas.md` (na pasta da skill `fabrica-videos-peca`) (a tabela "Qual peça para o que ele disse") e olhe `docs\mostruario.jpg`.
+1. Abra `pecas.md` (na pasta da skill `fabrica-videos-peca`) (a tabela "Qual peça para o que ele disse") e olhe `docs\mostruario.jpg`. Se a animação vai sobre a gravação do rosto em tela cheia (zoom, painéis em volta, transição), procure na seção "Efeitos sobre a gravação" e em `docs\efeitos.jpg`. Um efeito novo vai em `src\efeitos\`, com exemplo no `src\MostruarioEfeitos.tsx`, e se confere com `npm run mostruario -- efeitos`.
 2. Mostre a ele a imagem quando ele quiser escolher de olho.
 3. Copie o exemplo da peça em `src\Mostruario.tsx` para a cena do vídeo e troque os dados pelos reais.
 

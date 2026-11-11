@@ -3,6 +3,7 @@ import { Capa, capaPadrao, capaSchema } from "./Capa";
 import { VERTICAL } from "./formato";
 import { demoFormatoPadrao, demoFormatoSchema, DemoRostoComJanela, DemoTelaComRosto, DemoTutorialMudo } from "./formatos/Demos";
 import { duracaoMostruario, Mostruario, mostruarioPadrao, mostruarioSchema } from "./Mostruario";
+import { duracaoMostruarioEfeitos, MostruarioEfeitos, mostruarioEfeitosPadrao, mostruarioEfeitosSchema } from "./MostruarioEfeitos";
 import { Encerramento, encerramentoPadrao, encerramentoSchema } from "./animacoes/Encerramento";
 import { Contador, contadorPadrao, contadorSchema } from "./animacoes/Contador";
 import { duracaoListaDicas, ListaDicas, listaDicasPadrao, listaDicasSchema } from "./animacoes/ListaDicas";
@@ -52,6 +53,14 @@ export const RemotionRoot: React.FC = () => {
       </Folder>
       <Folder name="Biblioteca">
         <Composition id="Mostruario" component={Mostruario} schema={mostruarioSchema} defaultProps={mostruarioPadrao} durationInFrames={duracaoMostruario(VERTICAL.fps)} {...VERTICAL} />
+        <Composition
+          id="MostruarioEfeitos"
+          component={MostruarioEfeitos}
+          schema={mostruarioEfeitosSchema}
+          defaultProps={mostruarioEfeitosPadrao}
+          durationInFrames={duracaoMostruarioEfeitos(VERTICAL.fps)}
+          {...VERTICAL}
+        />
         <Still id="Capa" component={Capa} schema={capaSchema} defaultProps={capaPadrao} width={VERTICAL.width} height={VERTICAL.height} />
       </Folder>
       <Folder name="Formatos">

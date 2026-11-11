@@ -42,5 +42,5 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 - Se o fato do título mudar (uma nota, um número), a capa muda junto com a fala, a tela e a legenda do post.
 
 ## Limites
-- Não recorta a pessoa do fundo (isso pede um modelo de recorte, que a Fábrica não tem).
+- Não recorta a pessoa do fundo sozinha. Para uma capa com a pessoa recortada, use um quadro de `npm run recortar` (a pessoa sai com transparência).
 - Não põe ícones nem emojis: o design system não usa.

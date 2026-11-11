@@ -38,4 +38,4 @@ Exemplos prontos para copiar: `src\formatos\Demos.tsx` (composições `DemoRosto
 
 ## Limites
 - Gravação de tela (para `TelaComRosto` e `TutorialMudo`) é ele quem faz; a `TelaSite` cobre só o print parado com rolagem e zoom.
-- Fundo trocado atrás do rosto não existe.
+- Fundo trocado atrás do rosto ainda não tem formato pronto. O recorte já existe: `npm run recortar` gera a pessoa com transparência, e a `<PessoaRecortada>` (em `src\efeitos\Gravacao.tsx`) a põe por cima de qualquer fundo.

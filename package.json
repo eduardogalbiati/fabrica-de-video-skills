@@ -25,7 +25,8 @@
     "retrato": "node scripts/retrato.mjs",
     "estilo": "node scripts/estilo.mjs",
     "renderizar": "node scripts/renderizar.mjs",
-    "montar": "node scripts/montar.mjs"
+    "montar": "node scripts/montar.mjs",
+    "recortar": "node scripts/recortar.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "4.2.0",

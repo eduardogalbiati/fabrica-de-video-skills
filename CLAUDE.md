@@ -8,7 +8,7 @@ Vídeos verticais criados em código com Remotion 4 + React + TypeScript. Você 
 
 | Camada | Onde | Regra |
 |---|---|---|
-| Motor | `src/animacoes/`, `src/pecas/`, `src/formatos/`, `src/Root.tsx`, `scripts/` | Não cita pessoa, marca, estilo nem vídeo |
+| Motor | `src/animacoes/`, `src/pecas/`, `src/efeitos/`, `src/formatos/`, `src/Root.tsx`, `scripts/` | Não cita pessoa, marca, estilo nem vídeo |
 | Marca | `marca/` (`marca.json` + `fontes.ts`) | Quem fala: cores, fontes, assinatura, nome, temas |
 | Estilo | `estilos/<nome>/` (o ativo em `estilos/ativo.ts`) | Como se move e se desenha: entrada, flutuação, perspectiva, brilho, fundo. **Independe da marca** |
 | Vídeos | `src/videos/`, `roteiros/`, `legendas/`, `cortes/` | Um slug por vídeo; registrados em `src/videos/index.tsx` |
@@ -54,7 +54,8 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 | Folha de contato com o guia das zonas | `npm run folha -- <Id> src/videos/<slug>.tempos.json` |
 | Páginas de legenda | `npm run paginar -- legendas/<nome>.json "<vídeo>"` |
 | Fala provisória (voz do sistema) | `npm run fala -- <slug> <arquivo.txt>` |
-| Mostruário das peças | `npm run mostruario` |
+| Mostruário das peças | `npm run mostruario` (e `npm run mostruario -- efeitos` para os efeitos sobre a gravação) |
+| Recortar a pessoa do fundo (opcional: Python + MediaPipe, ver o topo de `scripts/recortar.mjs`) | `npm run recortar -- "<vídeo>" <nome>` → `trabalho/public/recortes/<nome>-pessoa.webm`, para usar com a `<PessoaRecortada>` |
 | Print de um site | `npm run print-site -- <endereço> <slug>` |
 | Capa | `npm run capa -- <slug> "<vídeo ou foto>"`, depois `npx remotion still Capa ...` |
 | Marcas | `npm run marca -- listar` (e `criar`, `ver`, `usar`, `do-site`, `do-video`) |

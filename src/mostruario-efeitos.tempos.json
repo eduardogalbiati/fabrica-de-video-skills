@@ -1,0 +1,20 @@
+{
+  "MuralManchetes": 0,
+  "CorteMergulho": 3,
+  "CelularFlutuante": 6,
+  "ZoomCamera": 9,
+  "InterfaceEmVolta": 12,
+  "OrbitaDeCartoes": 15,
+  "EtiquetaColada": 18,
+  "VarreduraAntesDepois": 21,
+  "RecuoEditor": 24,
+  "ComentarioCTA": 27,
+  "FundoTrocado": 30,
+  "Vertigem": 33,
+  "RecortePapel": 36,
+  "SaindoDoQuadro": 39,
+  "ContornoRabiscado": 42,
+  "TextoAtras": 45,
+  "ParedeDeVideos": 48,
+  "duracaoFala": 51
+}
