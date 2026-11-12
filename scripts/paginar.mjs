@@ -22,14 +22,16 @@ const PILARES = Object.keys(marcaAtiva.temas);
 
 const args = process.argv.slice(2);
 const refazer = args.includes("refazer");
+// "fluida": legenda de 1 a 3 palavras por vez, cada uma no seu tempo (LegendaFluida) → legendas\<nome>.fluida.json
+const fluida = args.includes("fluida");
 const pilar = args.find((a) => PILARES.includes(a)) ?? marcaAtiva.temaPadrao;
-const [arquivo, video] = args.filter((a) => a !== "refazer" && !PILARES.includes(a));
+const [arquivo, video] = args.filter((a) => a !== "refazer" && a !== "fluida" && !PILARES.includes(a));
 if (!arquivo) {
-  console.error('Uso: npm run paginar -- legendas\\<nome>.json ["<vídeo>"] [pilar] [refazer]');
+  console.error('Uso: npm run paginar -- legendas\\<nome>.json ["<vídeo>"] [pilar] [fluida] [refazer]');
   process.exit(1);
 }
 const nome = path.parse(arquivo).name;
-const saida = path.join("legendas", `${nome}.legenda.json`);
+const saida = path.join("legendas", `${nome}.${fluida ? "fluida" : "legenda"}.json`);
 if (existsSync(saida) && !refazer) {
   console.error(`${saida} já existe (pode ter palavras-chave marcadas). Para gerar de novo: acrescente "refazer" no fim do comando.`);
   process.exit(1);
@@ -122,6 +124,71 @@ if (video) {
     console.warn(`AVISO: o vídeo está fora de ${PUBLICO}. O Remotion só lê o que está lá: copie o arquivo e ajuste o campo "video".`);
     propVideo = path.basename(video);
   } else propVideo = relativo.split(path.sep).join("/");
+}
+
+if (fluida) {
+  // ── legenda fluida: blocos de 1 a 3 palavras, cada palavra com o segundo em que é falada ──
+  const MAX_PALAVRAS = 3;
+  const MAX_LETRAS_BLOCO = 20; // cabe numa linha da letra de título a 70 px
+  const PAUSA_BLOCO = 0.35;
+  const ws = [];
+  for (const p of palavras) {
+    if (ws.length && /^\.[a-z]/i.test(p.texto)) {
+      ws.at(-1).texto += p.texto; // "llms .txt" → "llms.txt"
+      ws.at(-1).ate = p.ate;
+    } else ws.push({ ...p });
+  }
+  // sem pontuação na tela; a palavra maiúscula que só abre frase vira minúscula (nomes próprios: revisar à mão)
+  ws.forEach((p, i) => {
+    const abre = i === 0 || /[.?!…]$/.test(ws[i - 1].texto);
+    let m = p.texto.replace(/^["“”'(]+/, "").replace(/[.,;:!?…"“”')]+$/, "");
+    if (abre && /^\p{Lu}(\p{Ll}|$)/u.test(m)) m = m[0].toLowerCase() + m.slice(1);
+    p.mostrar = m;
+  });
+  const blocosP = [];
+  let bl = [];
+  const fecharBloco = () => {
+    if (bl.length) blocosP.push(bl);
+    bl = [];
+  };
+  ws.filter((p) => p.mostrar).forEach((p) => {
+    const letrasBl = bl.reduce((n, x) => n + x.mostrar.length + 1, 0);
+    if (bl.length && (bl.length >= MAX_PALAVRAS || letrasBl + p.mostrar.length > MAX_LETRAS_BLOCO || p.de - bl.at(-1).ate >= PAUSA_BLOCO)) fecharBloco();
+    bl.push(p);
+    if (/[.,;:?!…]$/.test(p.texto)) fecharBloco();
+  });
+  fecharBloco();
+  // palavra pendurada ("de", "a", "no"…) no fim do bloco passa para o seguinte, se couber e não houver pausa
+  for (let i = 0; i < blocosP.length - 1; i++) {
+    const g = blocosP[i];
+    const prox = blocosP[i + 1];
+    while (g.length > 1 && prox.length < MAX_PALAVRAS) {
+      const ult = g.at(-1);
+      if (/[.,;:?!…]$/.test(ult.texto) || !PENDURADAS.has(normalizar(ult.mostrar)) || prox[0].de - ult.ate >= PAUSA_BLOCO) break;
+      prox.unshift(g.pop());
+    }
+  }
+  // bloco de uma palavra só que pede continuação ("o", "a", "de") entra no começo do seguinte (pode ficar com 4)
+  for (let i = blocosP.length - 2; i >= 0; i--) {
+    const g = blocosP[i];
+    const prox = blocosP[i + 1];
+    if (g.length === 1 && PENDURADAS.has(normalizar(g[0].mostrar)) && prox[0].de - g[0].ate < PAUSA_BLOCO) {
+      prox.unshift(g[0]);
+      blocosP.splice(i, 1);
+    }
+  }
+  const blocos = blocosP.map((g, i) => {
+    const prox = blocosP[i + 1];
+    const fim = g.at(-1).ate;
+    const ate = prox && prox[0].de - fim < 0.6 ? prox[0].de : Math.min(fim + 0.3, prox ? prox[0].de : fim + 0.3);
+    return { de: +g[0].de.toFixed(2), ate: +ate.toFixed(2), palavras: g.map((p) => ({ texto: p.mostrar, de: +p.de.toFixed(2) })) };
+  });
+  const propsFluida = { pilar, video: propVideo, duracaoSeg, enquadramento: "50% 50%", posicao: "faixa", mostrarGuia: false, modelo: "fluida", centroLegenda: 0, paginas: [], blocos };
+  writeFileSync(saida, JSON.stringify(propsFluida, null, 2) + "\n");
+  for (const b of blocos) console.log(`${b.de.toFixed(2).padStart(7)} – ${b.ate.toFixed(2).padStart(7)}  ${b.palavras.map((p) => p.texto).join(" ")}`);
+  console.log(`\n${blocos.length} blocos → ${saida}`);
+  console.log("Revise: nomes próprios (a primeira palavra de cada frase saiu em minúscula) e marque as palavras-chave com *asteriscos* (uma a cada 2 ou 3 blocos).");
+  process.exit(0);
 }
 
 const props = { pilar, video: propVideo, duracaoSeg, enquadramento: "50% 50%", posicao: "faixa", mostrarGuia: false, paginas };

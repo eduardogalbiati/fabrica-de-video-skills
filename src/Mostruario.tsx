@@ -7,6 +7,7 @@ import { Carimbo } from "./pecas/Carimbo";
 import { ChatIA } from "./pecas/ChatIA";
 import { Checklist } from "./pecas/Checklist";
 import { ContadorBarra } from "./pecas/ContadorBarra";
+import { ContadorCanto } from "./pecas/ContadorCanto";
 import { Enquete } from "./pecas/Enquete";
 import { GradeConexoes } from "./pecas/GradeConexoes";
 import { GraficoLinha } from "./pecas/GraficoLinha";
@@ -132,6 +133,7 @@ const exemplos: Record<string, (acento: string) => React.ReactNode> = {
       inicio={2}
     />
   ),
+  ContadorCanto: (acento) => <ContadorCanto atual={7} total={17} rotulo="efeito" acento={acento} top={300} inicio={4} />,
 };
 
 // onda de exemplo (ilustração, não é gravação de ninguém): fala com pausas

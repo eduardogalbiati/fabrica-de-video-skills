@@ -84,7 +84,8 @@ const exemplos: Record<string, (c: Cena) => React.ReactNode> = {
     </>
   ),
   OrbitaDeCartoes: ({ acento, g, p }) => {
-    const orbita = { acento, cartoes: [{ texto: "corte" }, { imagem: "exemplo/grafico.png" }, { texto: "legenda" }, { texto: "zoom" }, { imagem: "exemplo/pagina.png" }, { texto: "capa" }], cy: 740, ry: 170, largura: 160, periodo: 6 };
+    const orbita = { acento, cartoes: [{ texto: "corte" }, { imagem: "exemplo/grafico.png" }, { texto: "legenda" }, { texto: "zoom" }, { imagem: "exemplo/pagina.png" }, { texto: "capa" }], cy: 860, ry: 220, largura: 220, proporcao: 0.42, tamanhoTexto: 40, periodo: 6 };
+    // inclinada: na frente passa abaixo da boca, atrás passa atrás do alto da cabeça (nada cruza o rosto)
     // com a pessoa recortada, os cartões de trás passam ATRÁS da cabeça; sem ela, ficam apagados por cima
     return p ? (
       <>

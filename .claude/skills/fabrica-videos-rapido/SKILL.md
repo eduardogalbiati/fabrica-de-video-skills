@@ -67,6 +67,7 @@ A pessoa fica em tela cheia o tempo todo. Nos momentos-chave entra um efeito sob
   - O `CorteMergulho` recebe a mesma `<Gravacao>` em `de` e `para`, com `em` no quadro da **emenda do corte**. Para achar o segundo da emenda, some os trechos de `resultado.fica` do `.cortes.json`.
   - Texto na cor do tema some em cima de roupa clara: confira o contraste no quadro real.
   - Cartão que deve passar por trás da cabeça vai antes da `<PessoaRecortada>`; o que fica ao lado do rosto vai depois dela.
+  - Órbita: **nada cruza o rosto**. Incline a elipse para a frente passar abaixo da boca e o fundo atrás do alto da cabeça. Meça o y da boca e do topo da cabeça na gravação (ver `pecas.md` (na pasta da skill `fabrica-videos-peca`)).
   - Na troca para um fundo novo (`Vertigem`), deixe a `<Gravacao>` por baixo e faça o efeito entrar em 8 quadros: a pessoa não muda e o cenário não troca num estalo.
   - O `SaindoDoQuadro` esconde parte do cabeçalho do post atrás da cabeça. Se o nome e o botão Seguir importam (CTA), repita-os embaixo do post.
 
