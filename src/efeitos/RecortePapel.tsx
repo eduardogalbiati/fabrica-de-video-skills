@@ -7,6 +7,8 @@ import { ease } from "../pecas/util";
 // com uma palavra em letras recortadas embaixo. Anda "aos trancos" (2 quadros por passo), como stop-motion.
 // PRECISA DO RECORTE: `pessoa` = <PessoaRecortada>.
 //   em: quadro em que o papel rasga e a pessoa cola;  letras: a palavra das letras recortadas (curta)
+//   letrasEm, letrasPasso: quadros depois de `em` em que a primeira letra chega e entre uma letra e outra
+//   (cena curta: 4 e 2, para a palavra inteira chegar a tempo)
 export const RecortePapel: React.FC<{
   pessoa: React.ReactNode;
   acento: string;
@@ -14,7 +16,9 @@ export const RecortePapel: React.FC<{
   letras?: string;
   giro?: number;
   letrasTop?: number;
-}> = ({ pessoa, acento, em, letras, giro = -2, letrasTop = 1190 }) => {
+  letrasEm?: number;
+  letrasPasso?: number;
+}> = ({ pessoa, acento, em, letras, giro = -2, letrasTop = 1190, letrasEm = 14, letrasPasso = 4 }) => {
   const frameReal = useCurrentFrame();
   const frame = em + Math.floor((frameReal - em) / 2) * 2; // stop-motion
   const rasga = interpolate(frame, [em, em + 10], [0, 1], ease);
@@ -52,7 +56,7 @@ export const RecortePapel: React.FC<{
       {letras ? (
         <div style={{ position: "absolute", left: 0, right: 0, top: letrasTop, display: "flex", justifyContent: "center", gap: 10 }}>
           {letras.split("").map((l, i) => {
-            const chega = interpolate(frame, [em + 14 + i * 4, em + 20 + i * 4], [0, 1], ease);
+            const chega = interpolate(frame, [em + letrasEm + i * letrasPasso, em + letrasEm + 6 + i * letrasPasso], [0, 1], ease);
             const tipoDaCaixa = i % 3;
             return (
               <div

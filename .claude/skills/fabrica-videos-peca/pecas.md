@@ -21,6 +21,7 @@ Para ver em movimento: composição `Mostruario` no Studio (3 s por peça). Para
 | "pedi para a IA", "colei o prompt" | `ChatIA` | Pedido sendo digitado e a resposta em linhas |
 | "rodei o comando", "o script fez" | `Terminal` | Janela de terminal com linhas digitadas |
 | "pedi para a IA e ela fez", "a IA rodou e perguntou" (uma sessão inteira) | `JanelaAgente` | Sessão com o agente: pedido digitado, ferramentas rodando, saídas, pergunta com botões, menu do "/"; rola sozinha. Só com texto real |
+| uma sequência numerada ("17 efeitos", "5 dicas") | `ContadorCanto` | Contador discreto no canto de cima à direita, `07/17`, que muda a cada item; serve também em tela cheia, sobre a gravação |
 | "cortou as pausas", "de 2 minutos para 30 segundos" | `OndaDeCorte` | Forma de onda real da gravação: os cortes apagam e somem, o que fica se junta e a duração conta |
 | o nome de um site, app ou produto | `TelaSite` | Print numa moldura de navegador, com rolagem, zoom e clique |
 | vários prints em sequência | `TrocaPrints` | Prints trocando em corte seco, com chips por cima |
@@ -31,6 +32,7 @@ Para ver em movimento: composição `Mostruario` no Studio (3 s por peça). Para
 | "cada versão melhora a próxima" | `LinhaVersoes` | v1 → v2 → v3 acelerando, com curva |
 | o título de uma cena | `TituloCena` (em `util.tsx`) | Título com a palavra-chave na cor do pilar |
 | legenda queimada | `LegendaQueimada` | Ver a skill `fabrica-videos-legendas` |
+| legenda fluida, palavra por palavra | `LegendaFluida` | 1 a 3 palavras por vez, sem tarja, cada uma no seu tempo; ver a skill `fabrica-videos-legendas`, "Modelo fluido" |
 
 ## Props em comum
 - `acento`: a cor do pilar (`pilares[pilar].acento`).
@@ -55,7 +57,7 @@ A base é a `<Gravacao video="..." inicio={segundo} />`. Sem `video`, ela mostra
 | "presta atenção nisso" | `ZoomCamera` | Zoom em degraus com o visor da câmera: cantos do quadro, REC e régua do zoom |
 | "pedi para a IA e ela fez" | `InterfaceEmVolta` | Painéis flutuando em volta: pedido digitado, progresso, prévia, linha do tempo |
 | "X fica entre A e B", os dois lados de uma discussão | `InterfaceEmVolta` (painéis `texto` com `rotulo`, `tamanho` e `forte`) | Cartões de nome em volta da cabeça: um em cima, um de cada lado, cada um entrando na palavra |
-| "fiz tudo isso", várias peças de uma vez | `OrbitaDeCartoes` | Cartões (palavras ou prints) girando em volta da cabeça, em 3D. Palavra comprida: `proporcao={0.5}` (etiqueta deitada) e `tamanhoTexto` |
+| "fiz tudo isso", várias peças de uma vez | `OrbitaDeCartoes` | Cartões (palavras ou prints) girando em volta da cabeça, em 3D. Palavra comprida: `proporcao={0.5}` (etiqueta deitada) e `tamanhoTexto`. **Órbita inclinada, sem cruzar o rosto:** a frente passa abaixo da boca e o fundo passa atrás do alto da cabeça (centro da frente ≈ boca + 140 px, centro de trás ≈ topo da cabeça + 40 px; `cy` é a média dos dois e `ry` a metade da distância; etiquetas deitadas, `proporcao` ~0,42) |
 | o nome de uma coisa que aparece na cena | `EtiquetaColada` | Adesivo na cor do tema grudado no objeto; segue uma `trilha` marcada à mão, se o objeto se mexer |
 | "antes era assim, agora…" (cru → tratado) | `VarreduraAntesDepois` | Um fio de luz atravessa e troca o `antes` pelo `depois`, com os rótulos |
 | "foi assim que eu fiz este vídeo" | `RecuoEditor` | A câmera recua e o vídeo vira uma janela do editor: checklist, efeitos, linha do tempo com a onda |

@@ -13,7 +13,7 @@ Tudo roda no seu computador. As animações são feitas em código (Remotion) e 
 | "gravei isso, monta" | `/fabrica-videos-rapido` | Reel animado a partir da gravação, sem roteiro antes |
 | "quero um reel sobre X" | `/fabrica-videos-reels` | Reel com roteiro e storyboard aprovados antes de gravar |
 | "limpa essa gravação" | `/fabrica-videos-corte` | Vídeo sem silêncios, erros nem tomadas repetidas, com relatório |
-| "põe legenda" | `/fabrica-videos-legendas` | Legenda queimada, com a palavra-chave na cor da marca |
+| "põe legenda" | `/fabrica-videos-legendas` | Legenda queimada, com a palavra-chave na cor da marca: frases inteiras numa tarja, ou fluida, palavra por palavra |
 | "que animação dá para pôr aqui?" | `/fabrica-videos-peca` | Uma peça da biblioteca, ou uma nova no padrão da marca |
 | "mostra o site X" | `/fabrica-videos-print-site` | Print do site numa moldura de navegador, com rolagem e zoom |
 | "quero outro formato" | `/fabrica-videos-formatos` | Tela dividida, rosto com janela, tela com rosto, tutorial mudo |
