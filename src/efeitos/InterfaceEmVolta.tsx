@@ -7,13 +7,14 @@ import { balanco, presenca } from "./Gravacao";
 // Interface em volta: painéis de app flutuando em volta da pessoa, como se o trabalho acontecesse no ar.
 // Bom para "pedi para a IA e ela fez": o pedido sendo digitado, o progresso, a linha do tempo, a prévia.
 // Cada painel tem posição (x, y = canto de cima à esquerda), largura, quadro de entrada e, se quiser, de saída.
+// O painel "texto" também serve de cartão de nome em volta da pessoa: `rotulo` (pequeno, em cima), `tamanho` e `forte`.
 type Base = { x: number; y: number; largura: number; em: number; saiEm?: number };
 export type Painel =
   | (Base & { tipo: "pedido"; rotulo?: string; texto: string; digita: { de: number; ate: number } })
   | (Base & { tipo: "progresso"; rotulo: string; de: number; ate: number; ateValor?: number })
   | (Base & { tipo: "linhaDoTempo"; rotulo?: string; quadros: number; imagens?: string[]; agulha?: { de: number; ate: number } })
   | (Base & { tipo: "previa"; rotulo?: string; texto: string; imagem?: string; aoVivo?: string })
-  | (Base & { tipo: "texto"; texto: string });
+  | (Base & { tipo: "texto"; texto: string; rotulo?: string; tamanho?: number; forte?: boolean });
 
 const Rotulo: React.FC<{ texto: string; cor?: string }> = ({ texto, cor = ds.inkMuted }) => (
   <div style={{ ...tipo.chapter, fontSize: 20, color: cor, marginBottom: 12 }}>{texto}</div>
@@ -87,7 +88,13 @@ const Conteudo: React.FC<{ p: Painel; acento: string; frame: number }> = ({ p, a
       </>
     );
   }
-  return <div style={{ ...tipo.bodySm, fontSize: 28, color: ds.ink }}>{p.texto}</div>;
+  // texto: só a frase (padrão) ou, com `rotulo`, `tamanho` e `forte`, um cartão de nome (rótulo pequeno + palavra grande)
+  return (
+    <>
+      {p.rotulo ? <Rotulo texto={p.rotulo} /> : null}
+      <div style={{ ...(p.forte ? { ...tipo.hookLg, lineHeight: 1.04 } : tipo.bodySm), fontSize: p.tamanho ?? 28, color: ds.ink }}>{p.texto}</div>
+    </>
+  );
 };
 
 export const InterfaceEmVolta: React.FC<{ paineis: Painel[]; acento: string }> = ({ paineis, acento }) => {

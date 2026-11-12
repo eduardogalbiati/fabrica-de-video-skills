@@ -12,6 +12,7 @@
     "batidas": "node scripts/batidas.mjs",
     "converter": "node scripts/converter.mjs",
     "folha": "node scripts/folha.mjs",
+    "quadros": "node scripts/quadros.mjs",
     "falas": "node scripts/falas.mjs",
     "cortar": "node scripts/cortar.mjs",
     "paginar": "node scripts/paginar.mjs",

@@ -8,6 +8,8 @@ import { presenca } from "./Gravacao";
 //   cx, cy:   centro da órbita;  rx, ry: raios da elipse (ry pequeno = vista de leve por cima)
 //   periodo:  segundos para uma volta;  camada: "todas", ou "frente"/"atras" para usar com o recorte da pessoa
 //             (sem o recorte, os cartões de trás passam por cima do rosto: ficam apagados, ver `atrasVisivel`)
+//   proporcao: altura ÷ largura do cartão (1,6 = miniatura em pé; 0,5 = etiqueta deitada, para palavras compridas)
+//   tamanhoTexto: tamanho da palavra (padrão: 21% da largura)
 export type CartaoOrbita = { imagem?: string; texto?: string };
 
 export const OrbitaDeCartoes: React.FC<{
@@ -23,10 +25,12 @@ export const OrbitaDeCartoes: React.FC<{
   saiEm?: number;
   camada?: "todas" | "frente" | "atras";
   atrasVisivel?: number;
-}> = ({ cartoes, acento, cx = 540, cy = 780, rx = 330, ry = 90, periodo = 7, largura = 190, inicio = 0, saiEm, camada = "todas", atrasVisivel = 0.3 }) => {
+  proporcao?: number;
+  tamanhoTexto?: number;
+}> = ({ cartoes, acento, cx = 540, cy = 780, rx = 330, ry = 90, periodo = 7, largura = 190, inicio = 0, saiEm, camada = "todas", atrasVisivel = 0.3, proporcao = 1.6, tamanhoTexto }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const altura = largura * 1.6;
+  const altura = largura * proporcao;
   const v = presenca(frame, inicio, saiEm, 14);
   const abre = interpolate(v, [0, 1], [0.4, 1]);
   const giro = ((frame - inicio) / fps / periodo) * Math.PI * 2;
@@ -64,7 +68,7 @@ export const OrbitaDeCartoes: React.FC<{
             {c.imagem ? <Img src={staticFile(c.imagem)} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : null}
             {!c.imagem ? <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: altura * 0.42, backgroundColor: comAlfa(acento, i % 2 ? 0.28 : 0.6) }} /> : null}
             {c.texto ? (
-              <div style={{ position: "absolute", left: 14, right: 14, bottom: 18, ...tipo.hookLg, fontSize: Math.round(largura * 0.21), lineHeight: 1.02, color: ds.ink }}>
+              <div style={{ position: "absolute", left: 14, right: 14, bottom: 18, ...tipo.hookLg, fontSize: tamanhoTexto ?? Math.round(largura * 0.21), lineHeight: 1.02, color: ds.ink }}>
                 {c.texto}
               </div>
             ) : null}

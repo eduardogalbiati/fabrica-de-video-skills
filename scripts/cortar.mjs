@@ -207,6 +207,10 @@ const aplicar = () => {
   fica = fica.filter((f) => f.ate - f.de >= 0.2);
   if (!fica.length) falhar("Não sobrou nada para manter. Confira a lista remover.");
   if (fica.length > 150) falhar(`São ${fica.length} trechos: é corte demais para uma passada. Aumente pausaMin no arquivo e aplique de novo.`);
+  // Trechos que ficam sem nenhuma palavra: som que não chega a ser silêncio e que a transcrição não pegou (ruído,
+  // alguém falando longe, risada). Numa gravação de 5 min com pausas longas sobraram 8 pedaços assim, até 2 s cada.
+  // O script não decide por conta própria (pode ser uma risada que deve ficar): avisa no relatório.
+  const semFala = palavras.length ? fica.filter((f) => !palavras.some((p) => p.ate > f.de && p.de < f.ate)) : [];
 
   // o que saiu de verdade (complemento do que fica), com o texto que estava ali
   const saiu = [];
@@ -256,13 +260,21 @@ const aplicar = () => {
     "|---|---|---|---|---|---|",
     ...saiu.map((s, i) => `| ${i + 1} | ${s.de.toFixed(2)} | ${s.ate.toFixed(2)} | ${virgula(s.ate - s.de)} s | ${s.motivo} | ${s.texto.replace(/\|/g, "/")} |`),
     "",
+    ...(semFala.length
+      ? [
+          `**Atenção: ${semFala.length} trecho(s) ficaram no vídeo sem nenhuma palavra** (som sem fala: ruído, alguém falando longe, risada).`,
+          'Se não era para ficar, ponha cada um em `remover` como `{ "de": ..., "ate": ..., "motivo": "som sem fala" }` (tempos do original) e aplique de novo:',
+          ...semFala.map((f) => `- ${f.de.toFixed(2)} a ${f.ate.toFixed(2)} s (${virgula(f.ate - f.de)} s)`),
+          "",
+        ]
+      : []),
     "Para desfazer um corte: tire o item de `remover` (ou ponha a pausa em `manter`) no `.cortes.json` e aplique de novo. O original não é alterado.",
     "",
   ].join("\n");
   mkdirSync("cortes", { recursive: true });
   const relatorio = path.join("cortes", `${nome}.relatorio.md`);
   writeFileSync(relatorio, md);
-  dados.resultado = { video: saida, duracao: +nova.toFixed(3), cortes: saiu.length, fica };
+  dados.resultado = { video: saida, duracao: +nova.toFixed(3), cortes: saiu.length, fica, semFala };
   writeFileSync(arquivo, JSON.stringify(dados, null, 2) + "\n");
   console.log(md);
   console.log(`→ ${relatorio}`);

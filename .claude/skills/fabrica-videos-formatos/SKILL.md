@@ -22,6 +22,7 @@ Você é o **editor de vídeo**. O código está em `src\formatos\` (e `src\peca
 | Tela com rosto | `TelaComRosto` | A tela (print ou gravação) ocupa a parte de cima inteira; rosto num quadro de cantos arredondados embaixo | Mostrar um site ou uma ferramenta funcionando, comentando |
 | Tutorial mudo | `TutorialMudo` | Sem fala e sem rosto: texto grande em cima com o número do passo, tela embaixo, feito para loop | Passo a passo de 15 s que a pessoa salva |
 | Rosto com legenda | `VideoLegendado` (`src\videos\`) | Rosto em tela cheia, só legenda queimada | Recado rápido, sem animação (ver a skill `fabrica-videos-legendas`) |
+| Rosto com efeitos | `<Gravacao>` + efeitos (`src\efeitos\`) | Rosto em tela cheia o tempo todo; nos momentos-chave, um efeito sobre a gravação (zoom de câmera, painéis em volta, texto atrás da cabeça…), com trechos limpos entre eles | Falar olhando para a câmera, com energia, sem dividir a tela (catálogo: `pecas.md` (na pasta da skill `fabrica-videos-peca`), "Efeitos sobre a gravação") |
 | Demo (sessão do agente) | `JanelaAgente` + bandeja (`src\pecas\`) | Tela cheia, sem rosto: a janela do agente executando o pedido em cima (pedidos digitados, ferramentas, perguntas com botões); embaixo da faixa da legenda, o que cada passo produz (`OndaDeCorte`, print, roteiro, render) | Mostrar como se faz, passo a passo, num vídeo só com voz |
 
 Exemplos prontos para copiar: `src\formatos\Demos.tsx` (composições `DemoRostoComJanela`, `DemoTelaComRosto`, `DemoTutorialMudo` no Studio).

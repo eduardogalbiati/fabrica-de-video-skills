@@ -52,6 +52,7 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 | Corte automático | `npm run cortar -- analisar "<vídeo>"`, depois `npm run cortar -- aplicar cortes/<nome>.cortes.json` |
 | Achar o segundo de cada cena | `npm run batidas -- legendas/<fala>.json roteiros/<slug>.ancoras.json src/videos/<slug>.tempos.json` |
 | Folha de contato com o guia das zonas | `npm run folha -- <Id> src/videos/<slug>.tempos.json` |
+| Quadros escolhidos numa imagem (o meio de um efeito que se move) | `npm run quadros -- <Id> <quadros> [escala] [props.json] [guia]` (ex.: `40,60,29.4s`) |
 | Páginas de legenda | `npm run paginar -- legendas/<nome>.json "<vídeo>"` |
 | Fala provisória (voz do sistema) | `npm run fala -- <slug> <arquivo.txt>` |
 | Mostruário das peças | `npm run mostruario` (e `npm run mostruario -- efeitos` para os efeitos sobre a gravação) |

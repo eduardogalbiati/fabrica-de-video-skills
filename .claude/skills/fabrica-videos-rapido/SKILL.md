@@ -15,11 +15,14 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 
 ## 3 perguntas (só as que ele não respondeu)
 1. **Pilar** (cor): um dos temas da marca (`npm run marca -- listar`).
-2. **Formato:** tela dividida com animações em cima (padrão), rosto em tela cheia só com legenda, ou um dos formatos de a skill `fabrica-videos-formatos` (rosto com janela, tela com rosto no canto, tutorial mudo).
+2. **Formato:** tela dividida com animações em cima (padrão), **rosto com efeitos** (tela cheia, com efeitos sobre a gravação nos momentos-chave), rosto em tela cheia só com legenda, ou um dos formatos da skill `fabrica-videos-formatos` (rosto com janela, tela com rosto no canto, tutorial mudo).
 3. **Legenda:** ele põe depois, no aplicativo de edição que usa, ou já sai queimada no vídeo.
 
 ## Passo a passo
 1. **Slug e gravação.** Escolha um slug curto. Copie o original para `TRABALHO\originais\` e converta: `npm run converter -- "<original>" <slug>`.
+   - Se o original já estiver dentro de `TRABALHO\public\`, **mova** para `originais\` em vez de copiar: o Remotion copia a `public\` inteira a cada render, e um original de celular pesa gigabytes.
+   - Antes de transcrever, tire meia dúzia de quadros do original e veja **quem e o que aparece**. Se não for quem pediu o vídeo, diga isso logo na primeira mensagem: muda a tarja de nome, a assinatura e o encerramento.
+   - Sem saber o assunto, converta com um slug provisório (o nome do arquivo) e batize o vídeo depois de ler a fala.
 2. **Limpar** pela skill `fabrica-videos-corte` (passos 2 a 6). Daqui em diante o vídeo é `gravacao-<slug>-limpa.mp4` e a transcrição é `legendas\gravacao-<slug>-limpa.json`.
 3. **Ler o que ele disse:** `npm run falas -- legendas\gravacao-<slug>-limpa.json`. Escreva `roteiros\<slug>.md` com a transcrição corrigida (nomes próprios que o Whisper errou), a duração e os fatos citados. Fato que você não consegue conferir vira pergunta para ele, não vira texto na tela.
 4. **Storyboard automático** em `roteiros\<slug>-animacoes.md`: uma batida a cada 2–3 s, escolhendo a peça pelo que foi dito. A tabela "Qual peça para o que ele disse" fica no catálogo **`pecas.md` (na pasta da skill `fabrica-videos-peca`)** (imagem `docs\mostruario.jpg`; exemplo de cada peça em `src\Mostruario.tsx`). O que é próprio deste caminho, visto no teste real:
@@ -45,6 +48,28 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 ## Formato "rosto em tela cheia só com legenda"
 Pule os passos 4 a 7: depois de limpar, siga a skill `fabrica-videos-legendas` (composição `VideoLegendado`, sem código por vídeo).
 
+## Formato "rosto com efeitos"
+A pessoa fica em tela cheia o tempo todo. Nos momentos-chave entra um efeito sobre a gravação. O catálogo é a seção "Efeitos sobre a gravação" do `pecas.md` (na pasta da skill `fabrica-videos-peca`), com a imagem `docs\efeitos.jpg`; o código de exemplo de cada efeito está em `src\MostruarioEfeitos.tsx`. Muda assim nos passos acima:
+- **Passo 4, storyboard:** em vez de uma peça a cada 2–3 s, **um efeito a cada 4–6 s**, com trechos só com a pessoa entre eles. Efeito em sequência cansa: não mais que 6 a 8 num reel de 45 s, e nunca dois iguais seguidos. Escolha pelo que foi dito, na tabela "Ele disse… → Efeito". O storyboard vai para aprovação como tabela: segundo, fala e efeito proposto, marcando os que **precisam do recorte**. Ele troca ou tira o que quiser antes de construir.
+  - Em vídeo mais longo a conta é proporcional: no teste de 87 s foram 13 efeitos, com trechos de 2 a 8 s só com a pessoa.
+  - As emendas do corte entre dois assuntos são o lugar do `CorteMergulho`.
+  - Na tela entram só palavras que foram ditas (nomes, a frase do fato). Afirmação que você não consegue conferir não vira texto: vira pergunta na mensagem do storyboard.
+- **Recorte:** se algum efeito aprovado precisar da pessoa recortada, rode `npm run recortar -- "<vídeo limpo>" <slug> --conferir <3 segundos do vídeo>` antes de construir. Leva uns 2 min para cada 30 s de vídeo. Olhe os quadros de conferência: mão ou braço na borda do quadro podem sumir por alguns quadros.
+  - Pode rodar em segundo plano enquanto o storyboard é escrito: a qualidade do recorte (cabelo, mãos, cadeira) diz quais efeitos com recorte vale propor. Se o corte mudar depois, o recorte é refeito.
+- **Passo 6, construir:**
+  - **Som:** uma `<Audio>` da gravação limpa no vídeo inteiro, e todas as `<Gravacao>` com `mudo` (o padrão). Os efeitos que usam duas cópias da gravação (`CorteMergulho`, `VarreduraAntesDepois`) não podem dobrar o som.
+  - **Imagem:** cada cena é uma `<Sequence>` com a `<Gravacao video="gravacao-<slug>-limpa.mp4" inicio={segundo da cena} />` e o efeito por cima. Com recorte, entra também a `<PessoaRecortada pessoa="recortes/<slug>-pessoa.webm" inicio={o mesmo segundo} />`. Entre os efeitos, só a `<Gravacao>`.
+  - **Faixa da legenda:** fica livre (y 985–1125), como nos outros formatos.
+- **Passo 7, conferir:** a folha de contato pega o quadro de cada cena. Confira também um quadro no meio dos efeitos que se movem (mergulho, varredura, recuo, órbita) e a cena de abertura, que a folha não pega: `npm run quadros -- <Id> 20,45,29.4s guia`.
+- **O que o primeiro vídeo neste formato ensinou** (87 s, 13 efeitos):
+  - Monte o vídeo como uma **lista de cenas em ordem**, cada uma indo do seu começo até o começo da seguinte. O `inicio` da `<Gravacao>` é o quadro em que a cena começa dividido pelo fps: assim a imagem segue contínua e não sobra buraco.
+  - Olhe **onde está o rosto** antes de posicionar (cabeça de que y a que y, centro em que x) e passe esse ponto como `foco` ao zoom, ao mergulho e ao túnel.
+  - O `CorteMergulho` recebe a mesma `<Gravacao>` em `de` e `para`, com `em` no quadro da **emenda do corte**. Para achar o segundo da emenda, some os trechos de `resultado.fica` do `.cortes.json`.
+  - Texto na cor do tema some em cima de roupa clara: confira o contraste no quadro real.
+  - Cartão que deve passar por trás da cabeça vai antes da `<PessoaRecortada>`; o que fica ao lado do rosto vai depois dela.
+  - Na troca para um fundo novo (`Vertigem`), deixe a `<Gravacao>` por baixo e faça o efeito entrar em 8 quadros: a pessoa não muda e o cenário não troca num estalo.
+  - O `SaindoDoQuadro` esconde parte do cabeçalho do post atrás da cabeça. Se o nome e o botão Seguir importam (CTA), repita-os embaixo do post.
+
 ## O que este caminho não faz
 - Não inventa imagem, print nem número: tudo que aparece saiu da fala dele ou de material que ele mandou.
-- Não troca o fundo e não gera voz.
+- Não gera voz. Trocar o fundo agora dá, com o recorte (formato "rosto com efeitos", efeito `FundoTrocado`).
