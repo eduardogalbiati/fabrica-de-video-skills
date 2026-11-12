@@ -54,7 +54,8 @@ A base é a `<Gravacao video="..." inicio={segundo} />`. Sem `video`, ela mostra
 | um site, post ou app ("olha esse aqui") | `CelularFlutuante` | Um celular entra pelo lado e rola o print ao lado da pessoa |
 | "presta atenção nisso" | `ZoomCamera` | Zoom em degraus com o visor da câmera: cantos do quadro, REC e régua do zoom |
 | "pedi para a IA e ela fez" | `InterfaceEmVolta` | Painéis flutuando em volta: pedido digitado, progresso, prévia, linha do tempo |
-| "fiz tudo isso", várias peças de uma vez | `OrbitaDeCartoes` | Cartões (palavras ou prints) girando em volta da cabeça, em 3D |
+| "X fica entre A e B", os dois lados de uma discussão | `InterfaceEmVolta` (painéis `texto` com `rotulo`, `tamanho` e `forte`) | Cartões de nome em volta da cabeça: um em cima, um de cada lado, cada um entrando na palavra |
+| "fiz tudo isso", várias peças de uma vez | `OrbitaDeCartoes` | Cartões (palavras ou prints) girando em volta da cabeça, em 3D. Palavra comprida: `proporcao={0.5}` (etiqueta deitada) e `tamanhoTexto` |
 | o nome de uma coisa que aparece na cena | `EtiquetaColada` | Adesivo na cor do tema grudado no objeto; segue uma `trilha` marcada à mão, se o objeto se mexer |
 | "antes era assim, agora…" (cru → tratado) | `VarreduraAntesDepois` | Um fio de luz atravessa e troca o `antes` pelo `depois`, com os rótulos |
 | "foi assim que eu fiz este vídeo" | `RecuoEditor` | A câmera recua e o vídeo vira uma janela do editor: checklist, efeitos, linha do tempo com a onda |
@@ -76,7 +77,7 @@ Recebem a `pessoa` (a `<PessoaRecortada>`) e, quando faz sentido, a `gravacao` (
 | abertura com cara de colagem | `RecortePapel` | A pessoa vira um adesivo recortado sobre papel rasgado, com uma palavra em letras recortadas; anda aos trancos, como stop-motion |
 | "isso não cabe num post" | `SaindoDoQuadro` | O vídeo encolhe e vira um post, e a cabeça sai por cima da moldura |
 | destaque da pessoa, momento leve | `ContornoRabiscado` | Uma linha à mão em volta da silhueta, que "ferve", e rabiscos soltos (brilho, círculo, espiral) |
-| o título do vídeo | `TextoAtras` | Uma palavra gigante passa atrás da cabeça e outra fica na frente do corpo; as letras chegam espalhadas |
+| o título do vídeo | `TextoAtras` | Uma palavra gigante passa atrás da cabeça e outra fica na frente do corpo; as letras chegam espalhadas. `saiEm` faz as palavras sumirem antes do fim da cena. A palavra da frente sai na cor do tema: em cima de roupa clara ela some, e aí vale trocar por uma `EtiquetaColada` |
 | "fiz 40 vídeos assim", o fecho | `ParedeDeVideos` | Uma grade de miniaturas sobe devagar atrás da pessoa |
 
 Com recorte, a órbita também passa por trás da cabeça. O `MostruarioEfeitos` recebe `pessoa` (e `duracaoVideo`, se o mostruário for mais longo que a gravação).
