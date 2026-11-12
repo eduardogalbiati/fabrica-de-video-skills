@@ -5,7 +5,7 @@ import { ds, pilares, type Pilar, tipo, zonasReels } from "../animacoes/tema";
 
 // Formato "tela com rosto": o conteúdo (gravação de tela, TelaSite, animações) ocupa o quadro inteiro
 // e o rosto fica num quadro de cantos de 40 px com borda fina, fora das zonas do Instagram.
-// `children` recebe o quadro inteiro (1080×1920): respeite 160 px em cima, 320 embaixo e 96 nas laterais.
+// `children` recebe o quadro inteiro (1080×1920): respeite 270 px em cima, 320 embaixo e 96 nas laterais.
 export type CantoDoRosto = "inferior-esquerdo" | "inferior-direito" | "superior-direito";
 
 export const quadroDoRosto = (canto: CantoDoRosto, largura = 320, altura = 420) => {

@@ -60,7 +60,8 @@ export const RecuoEditor: React.FC<{
       >
         {children}
       </div>
-      <div style={{ position: "absolute", left: ds.space[4], top: 240, width: 205, opacity: resto(2) }}>
+      {/* painéis laterais a partir de y 360: deixam livre a linha do contador de canto (y 290–340), abaixo da zona de cima do Instagram */}
+      <div style={{ position: "absolute", left: ds.space[4], top: 360, width: 205, opacity: resto(2) }}>
         <div style={{ ...tipo.chapter, fontSize: 19, color: ds.inkMuted, marginBottom: 18 }}>checklist</div>
         {checklist.map((c, i) => {
           const feito = c.marcaEm !== undefined && frame >= c.marcaEm;
@@ -72,7 +73,7 @@ export const RecuoEditor: React.FC<{
           );
         })}
       </div>
-      <div style={{ position: "absolute", left: 780, top: 240, width: 204, opacity: resto(3) }}>
+      <div style={{ position: "absolute", left: 780, top: 360, width: 204, opacity: resto(3) }}>
         <div style={{ ...tipo.chapter, fontSize: 19, color: ds.inkMuted, marginBottom: 18 }}>efeitos</div>
         {efeitos.map((e, i) => (
           <div key={i} style={{ ...tipo.code, fontSize: 21, lineHeight: 1.25, marginBottom: 14, color: i === ativo ? acento : ds.inkMuted, opacity: resto(5 + i * 2) }}>

@@ -32,8 +32,9 @@ export const Assinatura: React.FC<{ secao: string; bottom?: number }> = ({ secao
   </div>
 );
 
-// Canto superior direito: "CAP. NN" ou nome do pilar
-export const Canto: React.FC<{ texto: string; top?: number }> = ({ texto, top = ds.space[5] }) =>
+// Canto superior direito: "CAP. NN" ou nome do pilar. Fica logo abaixo da zona de cima: em y 160, onde ficava
+// até 2026-11-12, o botão "+" do app cobria o fim do texto.
+export const Canto: React.FC<{ texto: string; top?: number }> = ({ texto, top = z.topo }) =>
   texto ? (
     <div style={{ position: "absolute", right: ds.space[4], top, ...tipo.chapter, color: ds.inkMuted }}>{texto}</div>
   ) : null;

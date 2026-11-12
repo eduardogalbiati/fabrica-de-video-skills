@@ -55,6 +55,10 @@ A base é a `<Gravacao video="..." inicio={segundo} />`. Sem `video`, ela mostra
 | troca de assunto, ou para esconder um corte seco | `CorteMergulho` | A câmera mergulha num plano e sai no seguinte (`de`, `para`, `em`) |
 | um site, post ou app ("olha esse aqui") | `CelularFlutuante` | Um celular entra pelo lado e rola o print ao lado da pessoa |
 | "presta atenção nisso" | `ZoomCamera` | Zoom em degraus com o visor da câmera: cantos do quadro, REC e régua do zoom |
+| uma frase que prepara algo importante ("tem um erro que quase todo mundo comete…") | `ZoomIn` | A imagem aproxima devagar durante a frase, sem nada na tela |
+| a palavra forte da frase ("você precisa editar *melhor*") | `PunchZoom` | Um salto seco para mais perto, na palavra; um segundo salto empilha |
+| uma explicação que abre o assunto ("o problema não é o conteúdo, é a forma…") | `ZoomOut` | Começa fechado no rosto e abre devagar |
+| uma quebra de padrão ("tem uma coisa que você **não** deveria fazer") | `CrashZoom` | Um salto bruto para bem perto, que segura um instante |
 | "pedi para a IA e ela fez" | `InterfaceEmVolta` | Painéis flutuando em volta: pedido digitado, progresso, prévia, linha do tempo |
 | "X fica entre A e B", os dois lados de uma discussão | `InterfaceEmVolta` (painéis `texto` com `rotulo`, `tamanho` e `forte`) | Cartões de nome em volta da cabeça: um em cima, um de cada lado, cada um entrando na palavra |
 | "fiz tudo isso", várias peças de uma vez | `OrbitaDeCartoes` | Cartões (palavras ou prints) girando em volta da cabeça, em 3D. Palavra comprida: `proporcao={0.5}` (etiqueta deitada) e `tamanhoTexto`. **Órbita inclinada, sem cruzar o rosto:** a frente passa abaixo da boca e o fundo passa atrás do alto da cabeça (centro da frente ≈ boca + 140 px, centro de trás ≈ topo da cabeça + 40 px; `cy` é a média dos dois e `ry` a metade da distância; etiquetas deitadas, `proporcao` ~0,42) |
@@ -64,6 +68,24 @@ A base é a `<Gravacao video="..." inicio={segundo} />`. Sem `video`, ela mostra
 | "comenta X que eu te mando" | `ComentarioCTA` | A caixa de comentário digita a palavra, envia, ganha um coração e recebe a resposta com o link (só o visual) |
 
 Os quadros das props são contados do início da cena, como nas peças. Por cima do rosto, guarde a faixa da legenda (y 985–1125) e as zonas do Instagram. Os exemplos do `src\MostruarioEfeitos.tsx` já respeitam isso.
+
+### Zooms de edição: quando usar cada um
+São os quatro zooms limpos de `src\efeitos\ZoomDeEdicao.tsx`. Diferem do `ZoomCamera`, que desenha o visor da câmera. Cada um envolve a `<Gravacao>` da cena. A regra de uso e as medidas vêm de um vídeo de referência sobre os 4 tipos de zoom.
+
+| Zoom | Quanto e em quanto tempo | Quando usar | Quanto usar |
+|---|---|---|---|
+| `ZoomIn` | de 1,00 a 1,14 em linha reta, durante a frase (3 a 4% por segundo; não passe de 1,25) | Criar expectativa e levar a atenção a algo importante. Parece que algo está prestes a acontecer, sem trocar de cena | O mais usado; várias vezes por vídeo |
+| `PunchZoom` | salto seco para 1,13 no quadro em que a palavra começa; um segundo salto empilha em 1,21 | Dar impacto a uma fala ou a uma palavra; quebra a monotonia | Nas frases de efeito, uma palavra por frase |
+| `ZoomOut` | a cena abre em 1,28 e vai até 1,00 em uns 5 s (5% por segundo) | Revelar mais da cena, dar movimento sem trocar de tomada, deixar a cena menos previsível | Algumas vezes por vídeo |
+| `CrashZoom` | de 1,00 a 1,40 em 2 quadros; segura uns 1,5 s | Quebra de padrão, chamar a atenção na hora. Funciona porque é bruto e aparece do nada | **Raro:** uma ou duas vezes por vídeo. Se usar toda hora, perde o impacto |
+
+Regras que valem para os quatro:
+- **Zoom não é o tempo todo.** O segredo não é ficar aproximando e afastando: é escolher os momentos em que se quer prender a atenção. Deixe frases sem zoom entre um zoom e outro.
+- **A volta é em corte seco, na frase seguinte.** Cada frase é uma cena (`<Sequence>`); a cena seguinte começa em 1,00.
+- **O `foco` é a linha dos olhos** (x do rosto, y dos olhos, de 0 a 1), medida na gravação. Assim o olhar não sobe nem desce quando a imagem aproxima.
+- O `em` do punch e do crash é o quadro em que a palavra forte **começa**, tirado da transcrição.
+- **Vídeo contínuo e tela dividida:** quando o vídeo não é cortado em cenas, use o `ZoomRoteiro`, que recebe a lista de zooms (`{ tipo, de, ate, em }`, um por frase, em quadros do vídeo). Na tela dividida, a `TelaDividida` já faz isso: passe `zooms`, `focoZoom` (a linha dos olhos **dentro da metade de baixo**, de 0 a 1) e, se quiser, `forcaZoom`.
+- **Na tela dividida os zooms vêm com 60% da força** (`forcaZoom` 0,6: zoom-in até 1,08, punch 1,08, zoom-out de 1,17, crash 1,24), porque ali o rosto já está fechado. Confira que a boca não desce para a zona de baixo (y 1600) no crash.
 
 **Recorte da pessoa:** `npm run recortar -- "<vídeo>" <nome>` tira a pessoa do fundo com um modelo que roda no próprio PC (MediaPipe) e entrega `recortes\<nome>-pessoa.webm`, um vídeo com transparência. A `<PessoaRecortada>`, com o mesmo `inicio` da `<Gravacao>`, vai por cima de tudo que deve passar **atrás** da pessoa:
 - Na órbita: `camada="atras"`, depois a pessoa, depois `camada="frente"`. O `MostruarioEfeitos` faz isso sozinho quando recebe o prop `pessoa`.
@@ -87,6 +109,7 @@ Com recorte, a órbita também passa por trás da cabeça. O `MostruarioEfeitos`
 ## Regras
 - Dado na tela é dado real: nota medida, número citado com fonte, print verdadeiro. Peça nenhuma serve para inventar resultado.
 - Uma cor de acento por vídeo. Nada de emoji animado, bounce, sombra em texto ou partícula.
-- Abaixo de y=1080 (formatos de tela cheia), nada à direita de x=930: é a coluna de botões do Instagram.
+- Abaixo de y=900 (formatos de tela cheia), nada à direita de x=930: é a coluna de botões do Instagram.
+- Nada importante acima de y=270: os botões de cima do app (voltar, "+") cobrem essa faixa. O contador de canto e o canto do capítulo já nascem logo abaixo dela.
 
 Para criar uma peça nova, veja a skill `fabrica-videos-peca`.

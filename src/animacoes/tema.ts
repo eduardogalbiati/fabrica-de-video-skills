@@ -28,10 +28,10 @@ export const ds = {
 
 // Zonas do Reels (1080×1920) cobertas pela interface do Instagram — nada importante pode ficar nelas.
 export const zonasReels = {
-  topo: 160, // "Reels", câmera, abas
+  topo: 270, // botões de cima do app (voltar, "+", câmera): vão até y 214 num print real de 2026-11-12; 270 = 14% da altura, com folga. Era 160.
   base: 320, // legenda do post, nome do perfil, música
   lateral: 96, // margem lateral
-  botoes: { x: 930, y0: 1080, y1: 1920 }, // coluna de curtir/comentar/compartilhar à direita
+  botoes: { x: 930, y0: 900, y1: 1920 }, // coluna de curtir/comentar/compartilhar à direita: no print real o coração começa em y 927 (era 1080 até 2026-11-12)
   legenda: { x0: 96, x1: 930, y0: 985, y1: 1125 }, // faixa recomendada para a legenda (logo abaixo da divisão)
 };
 

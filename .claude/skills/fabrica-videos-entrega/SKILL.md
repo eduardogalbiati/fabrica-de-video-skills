@@ -24,7 +24,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto.
 4. **Conferir o conteúdo:**
    - todo número e nome na tela bate com a fala e com a fonte;
    - se um fato mudou no caminho, mudou em todos os lugares (fala, tela, título, legenda do post e capa);
-   - nada importante nas zonas do Instagram (160 px em cima, 320 px embaixo, 96 px nas laterais, botões à direita);
+   - nada importante nas zonas do Instagram (270 px em cima, 320 px embaixo, 96 px nas laterais, botões à direita);
    - dados pessoais na tela (abas, e-mails, caminhos de pasta, custos): borrar ou avisar;
    - termina com o CTA combinado; a sugestão de legenda do post repete o mesmo CTA.
 5. **Completar o `NOTAS.md`:** Id da composição e comando de render, gravação usada, enquadramento, o que mudou em relação ao roteiro e a sugestão de legenda do post.

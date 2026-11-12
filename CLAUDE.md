@@ -27,7 +27,7 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 - Formato padrão: vertical 9:16, 1080×1920, 30 fps (`VERTICAL`, em `src/formato.ts`).
 - **Uma cor de acento por vídeo**, escolhida pelo prop `pilar` (um tema da marca). `*palavra*` num texto = palavra-chave na cor do acento.
 - Números sempre na fonte mono. Cartões em `bg100` com borda `line`, sempre com `...cartao(acento)` e `...flutua(frame, semente)` no fim do estilo, e títulos com `...brilhoTitulo(acento)`: assim a peça obedece ao estilo escolhido.
-- Zonas cobertas pela interface do Reels: 160 px em cima, 320 px embaixo, 96 px nas laterais e a coluna de botões à direita (x > 930, abaixo de y 1080). Nada importante nelas. `mostrarGuia` liga as zonas para conferir.
+- Zonas cobertas pela interface do Reels: 270 px em cima, 320 px embaixo, 96 px nas laterais e a coluna de botões à direita (x > 930, abaixo de y 900). Nada importante nelas. `mostrarGuia` liga as zonas para conferir.
 - O movimento é do estilo. No padrão (`mini-action`): fade com subida curta, sem bounce, sem sombra em texto, sem partículas. Outros estilos (como `orbita`) trazem perspectiva, flutuação e brilho; as regras de cada um estão no `README.md` da pasta dele.
 - Toda animação vem de `useCurrentFrame()` com `interpolate`; nunca animação CSS nem `setTimeout`.
 - Cada cena é um componente próprio (hooks dentro de funções de um objeto do componente pai contam o quadro errado).

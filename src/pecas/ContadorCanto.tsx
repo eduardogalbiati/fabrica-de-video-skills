@@ -1,17 +1,18 @@
 import { interpolate, useCurrentFrame } from "remotion";
 import { cartao, comAlfa } from "../animacoes/estilo";
-import { ds, tipo } from "../animacoes/tema";
+import { ds, tipo, zonasReels } from "../animacoes/tema";
 import { ease } from "./util";
 
 // Contador no canto de cima à direita ("07/17"): marca em que item de uma sequência o vídeo está.
 // Bom para mostruário, "N dicas", "N passos". Vai dentro da cena do item e entra com ela.
+// Fica logo abaixo da zona de cima do Instagram: em y 176, onde ficava até 2026-11-12, o botão "+" do app o cobria.
 //   atual, total: os números (o atual ganha zero à esquerda, no tamanho do total);  rotulo: palavra opcional antes
 export const ContadorCanto: React.FC<{ atual: number; total: number; acento: string; rotulo?: string; top?: number; inicio?: number }> = ({
   atual,
   total,
   acento,
   rotulo,
-  top = 176,
+  top = zonasReels.topo + 20,
   inicio = 0,
 }) => {
   const frame = useCurrentFrame();
