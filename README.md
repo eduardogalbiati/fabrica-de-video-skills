@@ -114,11 +114,12 @@ Como criar um estilo novo: `estilos/README.md`.
 
 ### Efeitos sobre a gravação
 
-Além das peças, que ocupam a metade de cima da tela, há 17 efeitos que agem sobre o rosto em tela cheia. Os 10 primeiros funcionam sobre qualquer gravação:
+Além das peças, que ocupam a metade de cima da tela, há 21 efeitos que agem sobre o rosto em tela cheia. Catorze funcionam sobre qualquer gravação:
 - recortes de manchete em volta do rosto;
 - mergulho de câmera entre dois planos;
 - celular rolando um print ao lado da pessoa;
 - zoom com o visor da câmera;
+- os quatro zooms de edição, limpos e presos à fala: zoom-in (aproxima devagar durante a frase), punch zoom (salto seco na palavra forte), zoom-out (começa fechado e abre) e crash zoom (salto bruto, para quebra de padrão). O catálogo diz quando usar cada um;
 - painéis de app flutuando em volta;
 - cartões em órbita;
 - etiqueta colada num objeto;
@@ -141,7 +142,7 @@ O recorte roda no seu computador, com o MediaPipe (opcional; só ele pede Python
 
 ```bash
 npm run recortar -- "trabalho/public/gravacao.mp4" minha-gravacao     # → trabalho/public/recortes/minha-gravacao-pessoa.webm
-npm run mostruario -- efeitos                                          # os 17 efeitos numa imagem
+npm run mostruario -- efeitos                                          # os 21 efeitos numa imagem
 ```
 
 ## O que ela não faz

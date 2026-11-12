@@ -21,6 +21,7 @@ import { TextoAtras } from "./efeitos/TextoAtras";
 import { VarreduraAntesDepois } from "./efeitos/VarreduraAntesDepois";
 import { TunelDeFundo, Vertigem } from "./efeitos/Vertigem";
 import { ZoomCamera } from "./efeitos/ZoomCamera";
+import { CrashZoom, PunchZoom, ZoomIn, ZoomOut } from "./efeitos/ZoomDeEdicao";
 import { FundoNoite } from "./animacoes/Base";
 import { Halo } from "./pecas/util";
 import tempos from "./mostruario-efeitos.tempos.json";
@@ -68,6 +69,19 @@ const exemplos: Record<string, (c: Cena) => React.ReactNode> = {
     <ZoomCamera acento={acento} de={8} escala={1.4} relogio={8}>
       {g()}
     </ZoomCamera>
+  ),
+  // os quatro zooms de edição (limpos, sem visor): o foco é a linha dos olhos da pessoa de exemplo
+  ZoomIn: ({ g }) => <ZoomIn foco={{ x: 0.5, y: 0.42 }}>{g()}</ZoomIn>,
+  PunchZoom: ({ g }) => (
+    <PunchZoom em={[30, 60]} foco={{ x: 0.5, y: 0.42 }}>
+      {g()}
+    </PunchZoom>
+  ),
+  ZoomOut: ({ g }) => <ZoomOut foco={{ x: 0.5, y: 0.42 }}>{g()}</ZoomOut>,
+  CrashZoom: ({ g }) => (
+    <CrashZoom em={30} segura={60} foco={{ x: 0.5, y: 0.42 }}>
+      {g()}
+    </CrashZoom>
   ),
   InterfaceEmVolta: ({ acento, g }) => (
     <>

@@ -12,7 +12,7 @@ import { clamp, ease } from "./util";
 //   visiveis           mostra no máximo N passos; quando entra o seguinte, a linha rola para cima e o primeiro sai
 //   focoNoAtual        os passos anteriores esmaecem quando o seguinte entra
 // Posição: `left` e `top` em px do quadro; `largura` é a largura total (ponto + texto). Em tela cheia, abaixo de
-// y 1080 o texto não pode passar de x 930 (coluna de botões): ajuste `largura` se a linha descer até lá.
+// y 900 o texto não pode passar de x 930 (coluna de botões): ajuste `largura` se a linha descer até lá.
 export type Passo = { texto: string; em: number; pergunta?: boolean; detalhe?: string };
 
 export const LinhaDePassos: React.FC<{

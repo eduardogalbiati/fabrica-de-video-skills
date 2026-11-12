@@ -47,7 +47,8 @@ try {
     const tempos = JSON.parse(readFileSync(path.join(RAIZ, "src", "mostruario-efeitos.tempos.json"), "utf8"));
     const nomes = Object.keys(tempos).filter((k) => k !== "duracaoFala");
     // quadro de cada efeito: perto do fim; o corte de mergulho, no meio do mergulho
-    const quadroDe = { CorteMergulho: (inicio) => inicio + 43 };
+    // o zoom-out termina aberto: o quadro do catálogo é do começo, ainda fechado
+    const quadroDe = { CorteMergulho: (inicio) => inicio + 43, ZoomOut: (inicio) => inicio + 8 };
     for (const [i, nome] of nomes.entries()) {
       const fim = i + 1 < nomes.length ? tempos[nomes[i + 1]] : tempos.duracaoFala;
       const quadro = quadroDe[nome] ? quadroDe[nome](Math.round(tempos[nome] * 30)) : Math.round(fim * 30) - 6;

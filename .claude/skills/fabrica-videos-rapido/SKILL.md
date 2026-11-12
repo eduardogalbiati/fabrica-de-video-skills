@@ -54,6 +54,11 @@ A pessoa fica em tela cheia o tempo todo. Nos momentos-chave entra um efeito sob
   - Em vídeo mais longo a conta é proporcional: no teste de 87 s foram 13 efeitos, com trechos de 2 a 8 s só com a pessoa.
   - As emendas do corte entre dois assuntos são o lugar do `CorteMergulho`.
   - Na tela entram só palavras que foram ditas (nomes, a frase do fato). Afirmação que você não consegue conferir não vira texto: vira pergunta na mensagem do storyboard.
+- **Zooms de edição** (`ZoomIn`, `PunchZoom`, `ZoomOut`, `CrashZoom`): entram por frase e **não contam** no limite de efeitos acima, porque não põem nada na tela. No storyboard, uma coluna "zoom" ao lado do efeito, seguindo a tabela "Zooms de edição: quando usar cada um" do `pecas.md` (na pasta da skill `fabrica-videos-peca`):
+  - zoom-in na frase que prepara algo importante; punch na palavra forte de uma frase de efeito; zoom-out na frase que abre uma explicação; crash só na quebra de padrão, uma ou duas vezes por vídeo;
+  - pelo menos uma frase sem zoom entre dois zooms, e nada de zoom na mesma cena de um efeito que já mexe na imagem (`ZoomCamera`, `CorteMergulho`, `Vertigem`, `RecuoEditor`);
+  - o `foco` é a linha dos olhos, medida na gravação (o mesmo ponto para o vídeo inteiro).
+  - Valem também no formato rosto em tela cheia só com legenda e na **tela dividida** (prop `zooms` da `TelaDividida`, com 60% da força).
 - **Recorte:** se algum efeito aprovado precisar da pessoa recortada, rode `npm run recortar -- "<vídeo limpo>" <slug> --conferir <3 segundos do vídeo>` antes de construir. Leva uns 2 min para cada 30 s de vídeo. Olhe os quadros de conferência: mão ou braço na borda do quadro podem sumir por alguns quadros.
   - Pode rodar em segundo plano enquanto o storyboard é escrito: a qualidade do recorte (cabelo, mãos, cadeira) diz quais efeitos com recorte vale propor. Se o corte mudar depois, o recorte é refeito.
 - **Passo 6, construir:**

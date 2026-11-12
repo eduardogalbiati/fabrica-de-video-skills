@@ -31,8 +31,9 @@ export const ZoomCamera: React.FC<{
   const segundos = relogio + Math.max(0, frame - de) / fps;
   const tempo = `${String(Math.floor(segundos / 3600)).padStart(2, "0")}:${String(Math.floor((segundos % 3600) / 60)).padStart(2, "0")}:${String(Math.floor(segundos % 60)).padStart(2, "0")}`;
   const pisca = Math.floor(frame / 15) % 2 === 0;
-  // quadro de foco: dentro das zonas livres, longe da coluna de botões
-  const q = { x0: 150, x1: zonasReels.botoes.x - 20, y0: 330, y1: 1440 };
+  // quadro de foco: dentro das zonas livres, longe da coluna de botões. O REC fica logo abaixo da zona de cima
+  // (em y 200, onde ficava até 2026-11-12, encostava na seta de voltar do app) e o quadro começa abaixo dele.
+  const q = { x0: 150, x1: zonasReels.botoes.x - 20, y0: zonasReels.topo + 100, y1: 1440 };
   const canto = 72;
   const linha = `5px solid ${comAlfa(ds.ink, 0.92)}`;
   const regua = { x0: 300, x1: 780, y: 1520 };
@@ -49,7 +50,7 @@ export const ZoomCamera: React.FC<{
         ].map((c, i) => (
           <div key={i} style={{ position: "absolute", width: canto, height: canto, ...c }} />
         ))}
-        <div style={{ position: "absolute", left: ds.space[4] + 24, top: 200, display: "flex", alignItems: "center", gap: 14, ...tipo.chapter, fontSize: 28, color: ds.ink }}>
+        <div style={{ position: "absolute", left: ds.space[4] + 24, top: zonasReels.topo + 20, display: "flex", alignItems: "center", gap: 14, ...tipo.chapter, fontSize: 28, color: ds.ink }}>
           <div style={{ width: 18, height: 18, borderRadius: 9, backgroundColor: acento, opacity: pisca ? 1 : 0.25 }} />
           <span>{rotulo}</span>
           <span style={{ color: comAlfa(ds.ink, 0.75) }}>{tempo}</span>

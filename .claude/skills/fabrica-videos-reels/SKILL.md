@@ -50,7 +50,7 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
    Depois `npm run legendar` + `npm run batidas` (seção 4) para gerar `src/videos/<slug>.tempos.json`, com o prop `video` = `"previa/fala-<slug>.mp4"`.
 6. Verifique: `npx tsc` e a folha de contato com o guia ligado:
    `npm run folha -- <Id> src\videos\<slug>.tempos.json` → `TRABALHO\out\folha-<Id>.jpg` (1 quadro do fim de cada cena).
-   Olhe a imagem: nada em vermelho (topo 160, base 320, laterais 96, botões à direita), nada sobreposto, textos cabendo.
+   Olhe a imagem: nada em vermelho (topo 270, base 320, laterais 96, botões à direita), nada sobreposto, textos cabendo.
 7. Renderize a prévia: `npx remotion render <Id> "trabalho\out\previa-<slug>.mp4"` e mande para ele.
 
 ## 4. Gravação real → sincronizar e enquadrar

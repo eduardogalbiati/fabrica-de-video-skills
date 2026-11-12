@@ -14,7 +14,7 @@ export const demoFormatoSchema = z.object({ pilar: pilarSchema, mostrarGuia: z.b
 type Props = z.infer<typeof demoFormatoSchema>;
 export const demoFormatoPadrao: Props = { pilar: PILAR_PADRAO, mostrarGuia: false };
 
-// Largura útil abaixo de y=1080, onde a coluna de botões do Instagram ocupa a direita.
+// Largura útil abaixo de y=900, onde a coluna de botões do Instagram ocupa a direita.
 const LARGURA_SEM_BOTOES = zonasReels.botoes.x - zonasReels.lateral;
 
 // Cada cena é um componente próprio, para o useCurrentFrame() contar a partir do início da cena.
