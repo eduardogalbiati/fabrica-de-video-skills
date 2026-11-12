@@ -48,6 +48,8 @@ node scripts/montar.mjs explicar
 
 Quem só quer as animações não precisa do modelo de 4 GB: ele só entra quando você pede corte automático, legenda ou sincronização com a fala.
 
+O **recorte da pessoa** (opcional) usa Python 3.12 e o MediaPipe, num ambiente à parte de ~380 MB, com os modelos incluídos. O `npm run recortar` mostra os comandos para montar esse ambiente quando ele ainda não existe.
+
 Testado no **Windows 11**. No macOS e no Linux os scripts são os mesmos, mas ninguém rodou tudo de ponta a ponta ainda: se você rodar, conte o que quebrou.
 
 ## Como começar
@@ -110,11 +112,44 @@ npm run renderizar -- Exemplo trabalho/out/exemplo-orbita.mp4 estilo=orbita
 
 Como criar um estilo novo: `estilos/README.md`.
 
+### Efeitos sobre a gravação
+
+Além das peças, que ocupam a metade de cima da tela, há 17 efeitos que agem sobre o rosto em tela cheia. Os 10 primeiros funcionam sobre qualquer gravação:
+- recortes de manchete em volta do rosto;
+- mergulho de câmera entre dois planos;
+- celular rolando um print ao lado da pessoa;
+- zoom com o visor da câmera;
+- painéis de app flutuando em volta;
+- cartões em órbita;
+- etiqueta colada num objeto;
+- varredura antes/depois;
+- recuo para dentro do editor;
+- comentário com chamada.
+
+Os outros 7 precisam da pessoa recortada do fundo:
+- fundo trocado;
+- vertigem;
+- recorte de papel;
+- cabeça saindo da moldura de um post;
+- contorno desenhado à mão;
+- palavra gigante atrás da cabeça;
+- parede de vídeos.
+
+![Mostruário dos efeitos](docs/efeitos.jpg)
+
+O recorte roda no seu computador, com o MediaPipe (opcional; só ele pede Python):
+
+```bash
+npm run recortar -- "trabalho/public/gravacao.mp4" minha-gravacao     # → trabalho/public/recortes/minha-gravacao-pessoa.webm
+npm run mostruario -- efeitos                                          # os 17 efeitos numa imagem
+```
+
 ## O que ela não faz
 
 - Não publica, não agenda e não envia nada. Quem publica é você.
 - Não inventa número, print nem resposta de IA: o que aparece na tela sai da sua fala ou de material seu.
-- Não troca o fundo atrás de você e não gera voz. A voz provisória do sistema serve só para testar as animações.
+- Não gera voz. A voz provisória do sistema serve só para testar as animações.
+- O recorte da pessoa é bom, mas não é perfeito. A borda pode "respirar" 1 a 2 px, e mão ou braço encostados na borda do quadro às vezes somem por alguns quadros. Confira a folha de contato.
 - Não ouve. Som e sincronia de ouvido são sempre conferidos por uma pessoa.
 
 ## Conferir antes de contribuir
