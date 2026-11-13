@@ -1,4 +1,5 @@
-import { interpolate, useCurrentFrame } from "remotion";
+import { interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { tipo } from "../animacoes/tema";
 import type { No } from "./RedeNeural";
 import { ease } from "./util";

@@ -1,4 +1,5 @@
-import { AbsoluteFill, random, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, random } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { comAlfa } from "./estilo";
 import { ds } from "./tema";
 

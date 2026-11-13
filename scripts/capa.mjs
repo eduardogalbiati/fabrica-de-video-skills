@@ -19,6 +19,7 @@ if (!slug) {
 }
 
 let fundo = "";
+let escalaDaCapa = 1; // 2 quando o fundo é 4K: a capa sai em 2160x3840
 if (origem) {
   if (!existsSync(origem)) {
     console.error(`Não achei o arquivo: ${origem}`);
@@ -30,11 +31,14 @@ if (origem) {
   const ehImagem = /\.(png|jpe?g|webp)$/i.test(origem);
   const args = ["-hide_banner", "-loglevel", "error", "-y"];
   if (!ehImagem) args.push("-ss", String(Number(segundoArg ?? 1.5)));
-  args.push("-i", origem, "-frames:v", "1", "-vf", "scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920", "-q:v", "2", destino);
+  // corta em 9:16 e MANTÉM a resolução do vídeo ou da foto (de 1080 a 2160 px de largura): a capa sai na mesma qualidade
+  args.push("-i", origem, "-frames:v", "1", "-vf", "crop=w='min(iw,ih*9/16)':h='min(ih,iw*16/9)',scale=w='max(1080,min(2160,iw))':h=-2:flags=lanczos", "-q:v", "2", destino);
   const r = spawnSync("ffmpeg", args, { stdio: "inherit" });
   if (r.status !== 0 || !existsSync(destino)) process.exit(r.status ?? 1);
   fundo = `capas/${slug}-fundo.jpg`;
   console.log(`Fundo: ${destino}`);
+  const largura = Number(spawnSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width", "-of", "csv=p=0", destino], { encoding: "utf8" }).stdout);
+  if (largura >= 2160) escalaDaCapa = 2;
 }
 
 const props = path.join("roteiros", `${slug}.capa.json`);
@@ -52,4 +56,5 @@ if (existsSync(props)) {
   console.log(`Props: ${props}`);
 }
 mkdirSync(SAIDA, { recursive: true });
-console.log(`Edite o título e renderize:\n  npx remotion still Capa "${path.join(SAIDA, `${slug}-capa.png`)}" --props=${props}`);
+console.log(`Edite o título e renderize:\n  npx remotion still Capa "${path.join(SAIDA, `${slug}-capa.png`)}" --props=${props}${escalaDaCapa > 1 ? ` --scale=${escalaDaCapa}` : ""}`);
+if (escalaDaCapa > 1) console.log("O fundo é 4K: com --scale=2 a capa sai em 2160x3840, na mesma qualidade da gravação.");

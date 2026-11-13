@@ -1,5 +1,6 @@
 import { Video } from "@remotion/media";
-import { AbsoluteFill, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, staticFile } from "remotion";
+import { Sequence } from "../relogio";
 import { z } from "zod";
 import { GuiaZonaSegura } from "../animacoes/Base";
 import { ds, PILAR_PADRAO, pilares, pilarSchema, tipo } from "../animacoes/tema";

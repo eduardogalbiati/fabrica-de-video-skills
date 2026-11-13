@@ -1,4 +1,5 @@
-import { AbsoluteFill, interpolate, random, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, random } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { FundoNoite } from "../animacoes/Base";
 import { cartao, comAlfa } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";

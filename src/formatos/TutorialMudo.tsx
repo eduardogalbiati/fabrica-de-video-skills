@@ -1,4 +1,5 @@
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { FundoNoite, GuiaZonaSegura } from "../animacoes/Base";
 import { ds, pilares, type Pilar, tipo } from "../animacoes/tema";
 import { aparece, Destaque } from "../pecas/util";

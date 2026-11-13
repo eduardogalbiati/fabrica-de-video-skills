@@ -1,4 +1,5 @@
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { clamp } from "../pecas/util";
 
 // ZOOMS DE EDIÇÃO: os quatro zooms "limpos" de quem edita vídeo de rosto, sem nada desenhado por cima

@@ -40,9 +40,11 @@ if (a) {
   pico = Number(/"input_tp"\s*:\s*"(-?[\d.]+)"/.exec(med)?.[1]);
 }
 
+// tamanho: em pé (9:16), no mínimo 1080x1920. Acima disso está certo: o vídeo sai na resolução da gravação.
+const emPe = v ? Math.abs(v.width / v.height - 9 / 16) < 0.003 : false;
 const itens = [
-  ["Tamanho", `${v?.width}x${v?.height}`, v?.width === 1080 && v?.height === 1920 ? "OK" : "AVISO: o padrão do Reels é 1080x1920"],
-  ["Quadros por segundo", virgula(fps, 2), Math.abs(fps - 30) < 0.01 ? "OK" : "AVISO: o padrão é 30"],
+  ["Tamanho", `${v?.width}x${v?.height}`, emPe && v.width >= 1080 ? (v.width > 1080 ? "OK (resolução da gravação mantida)" : "OK") : "AVISO: o formato do Reels é 9:16, com pelo menos 1080x1920"],
+  ["Quadros por segundo", virgula(fps, 2), fps >= 23.9 && fps <= 60.1 ? (Math.abs(fps - 30) < 0.01 ? "OK" : "OK (os da gravação)") : "AVISO: fora da faixa de 24 a 60"],
   ["Vídeo", `${v?.codec_name} ${v?.pix_fmt}`, v?.codec_name === "h264" && /^yuvj?420p$/.test(v?.pix_fmt ?? "") ? "OK" : "AVISO: o Instagram espera H.264 em yuv420p"],
   ["Áudio", a ? `${a.codec_name} ${a.sample_rate} Hz` : "sem áudio", a ? (a.codec_name === "aac" ? "OK" : "AVISO: o padrão é AAC") : "AVISO: vídeo sem áudio"],
   ["Duração", `${virgula(dur)} s`, dur <= 90 ? "OK" : "AVISO: passa de 90 s (limite do Reels)"],

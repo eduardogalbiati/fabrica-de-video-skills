@@ -24,12 +24,14 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 
 ## Regras visuais
 
-- Formato padrão: vertical 9:16, 1080×1920, 30 fps (`VERTICAL`, em `src/formato.ts`).
+- As composições são desenhadas em vertical 9:16, 1080×1920, e escritas em 30 quadros por segundo (`VERTICAL`, em `src/formato.ts`). O vídeo final pode sair maior e mais liso que isso: ver "A qualidade que entra é a que sai", abaixo.
 - **Uma cor de acento por vídeo**, escolhida pelo prop `pilar` (um tema da marca). `*palavra*` num texto = palavra-chave na cor do acento.
 - Números sempre na fonte mono. Cartões em `bg100` com borda `line`, sempre com `...cartao(acento)` e `...flutua(frame, semente)` no fim do estilo, e títulos com `...brilhoTitulo(acento)`: assim a peça obedece ao estilo escolhido.
 - Zonas cobertas pela interface do Reels: 270 px em cima, 320 px embaixo, 96 px nas laterais e a coluna de botões à direita (x > 930, abaixo de y 900). Nada importante nelas. `mostrarGuia` liga as zonas para conferir.
 - O movimento é do estilo. No padrão (`mini-action`): fade com subida curta, sem bounce, sem sombra em texto, sem partículas. Outros estilos (como `orbita`) trazem perspectiva, flutuação e brilho; as regras de cada um estão no `README.md` da pasta dele.
 - Toda animação vem de `useCurrentFrame()` com `interpolate`; nunca animação CSS nem `setTimeout`.
+- `useCurrentFrame`, `useVideoConfig` e `Sequence` vêm de `src/relogio.tsx`, nunca direto do `remotion`. As animações são escritas contando 30 quadros por segundo; o relógio converte quando o vídeo sai nos quadros por segundo da gravação (60, por exemplo).
+- **A qualidade que entra é a que sai.** O conversor mantém a resolução e os quadros por segundo da gravação, e o render final (`npm run renderizar`) sai neles: 4K a 60 entra, 4K a 60 sai. Só reduz com `1080p` ou `30fps` no comando, a pedido da pessoa. HDR é a exceção: o Remotion só desenha em cores normais, então gravação em HDR sai em SDR.
 - Cada cena é um componente próprio (hooks dentro de funções de um objeto do componente pai contam o quadro errado).
 
 ## Regras de conteúdo
@@ -46,7 +48,7 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 | Montar ou conferir a instalação | `npm run montar` (com `demo` no fim, renderiza o mostruário) |
 | Prévia ao vivo (Remotion Studio, porta 3210) | `npm run dev` |
 | Checar tipos | `npx tsc` |
-| Converter a gravação do celular (trata 4K HDR) | `npm run converter -- "<original>" <slug>` |
+| Converter a gravação do celular (mantém a resolução e os quadros por segundo; HDR vira SDR) | `npm run converter -- "<original>" <slug> [ate=<segundos>]` |
 | Transcrever com tempos (Whisper local) | `npm run legendar -- "<vídeo>"` |
 | Ler a gravação como tabela de falas | `npm run falas -- legendas/<nome>.json` |
 | Corte automático | `npm run cortar -- analisar "<vídeo>"`, depois `npm run cortar -- aplicar cortes/<nome>.cortes.json` |
@@ -63,7 +65,7 @@ O código lê a marca pelos tokens de `src/animacoes/tema.ts` (`ds`, `pilares`, 
 | Estilos | `npm run estilo -- listar` (e `ver <nome>`, `usar <nome>`) |
 | Conferência final e notas de entrega | `npm run conferir -- "<vídeo final>" <slug>` |
 | Volume em −14 LUFS | `npm run nivelar -- "<vídeo>"` |
-| Renderizar | `npx remotion render <Id> "trabalho/out/<nome>.mp4"` |
+| **Renderizar o final** (sai na resolução e nos quadros por segundo da gravação) | `npm run renderizar -- <Id> "trabalho/out/<nome>.mp4"` (`1080p` e `30fps` reduzem, só a pedido; `4k` e `60fps` forçam num vídeo sem gravação; `previa` = prévia leve; `quadros=630-720` = só um trecho). `npx remotion render` direto sai sempre em 1080×1920 a 30: não use no final |
 | Renderizar com outra marca e/ou outro estilo (sem trocar os ativos) | `npm run renderizar -- <Id> "trabalho/out/<nome>.mp4" marca=<nome> estilo=<nome> [mudo]` |
 | Retrato do motor (antes e depois de uma mudança) | `npm run retrato -- tirar <nome>`, depois `npm run retrato -- comparar <a> <b>` |
 

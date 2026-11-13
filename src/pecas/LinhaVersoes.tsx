@@ -1,4 +1,5 @@
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { ds, tipo } from "../animacoes/tema";
 import { clamp, ease } from "./util";
 

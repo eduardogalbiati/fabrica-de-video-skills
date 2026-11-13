@@ -1,5 +1,6 @@
 import { Video } from "@remotion/media";
-import { AbsoluteFill, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, staticFile } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { FundoNoite, GuiaZonaSegura } from "../animacoes/Base";
 import { ds, marca, pilares, type Pilar, tipo, zonasReels } from "../animacoes/tema";
 import { ease } from "../pecas/util";

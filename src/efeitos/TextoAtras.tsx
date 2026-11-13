@@ -1,4 +1,5 @@
-import { AbsoluteFill, interpolate, random, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate, random } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { ds, fonteDisplay } from "../animacoes/tema";
 import { ease } from "../pecas/util";
 

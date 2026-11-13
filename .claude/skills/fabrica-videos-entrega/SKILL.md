@@ -19,6 +19,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto.
 2. **Corrigir o que deu AVISO:**
    - volume fora de −16 a −12 LUFS → `npm run nivelar -- "<vídeo>"` (gera `<nome>-14lufs.mp4`; passe esse a ser o final e confira de novo: a segunda conferência atualiza a tabela e o caminho do vídeo no `NOTAS.md`). Com a voz do iPhone o render sai perto de −20 LUFS, então isso é quase sempre necessário;
    - tamanho, fps ou codec errados → o render saiu da composição errada ou de outra ferramenta; refaça;
+   - **o tamanho certo é o da gravação** (a qualidade que entra é a que sai): gravação em 4K → final em 2160×3840. Se o final saiu em 1080×1920 com gravação em 4K e ele não pediu `1080p`, o render foi feito pelo comando errado: refaça com `npm run renderizar -- <Id> "<saída>.mp4"`;
    - mais de 90 s → avise a ele: passa do limite do Reels.
 3. **Olhar** `folha-final.jpg` e `capa.jpg`: cena preta, texto cortado, legenda fora do lugar, capa com olho fechado ou boca aberta. Capa ruim: rode de novo com outro segundo.
 4. **Conferir o conteúdo:**

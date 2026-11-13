@@ -1,4 +1,5 @@
-import { interpolate, random, useCurrentFrame } from "remotion";
+import { interpolate, random } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { ds } from "../animacoes/tema";
 import { clamp, ease } from "./util";
 
