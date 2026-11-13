@@ -1,4 +1,5 @@
-import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
+import { AbsoluteFill } from "remotion";
+import { Sequence, useVideoConfig } from "./relogio";
 import { z } from "zod";
 import { ds, PILAR_PADRAO, pilares, pilarSchema, tipo } from "./animacoes/tema";
 import { AntesDepois } from "./pecas/AntesDepois";

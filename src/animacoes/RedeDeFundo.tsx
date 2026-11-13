@@ -1,4 +1,5 @@
-import { random, useCurrentFrame, useVideoConfig } from "remotion";
+import { random } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { ds } from "./tema";
 
 // Fundo "rede" dos estilos: pontos espalhados que derivam devagar, ligados por linhas finas quando ficam perto.

@@ -17,7 +17,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 As **pausas** saem sozinhas: o script acha os silêncios pelo áudio. O que é **erro ou tomada repetida** é decisão de quem lê o texto: você. O cliente confere pelo relatório e ouvindo o resultado.
 
 ## Passo a passo
-1. **Gravação no formato do estúdio.** Se veio do celular: copie o original para `TRABALHO\originais\` e rode `npm run converter -- "<original>" <slug>` (gera `TRABALHO\public\gravacao-<slug>.mp4`). Vale também para gravação que não é 4K HDR: o conversor gira o vídeo em pé, corta para 1080×1920 e passa para 30 fps. Extraia um quadro do convertido e do original (`ffmpeg -ss 20 -i <arquivo> -frames:v 1 ...`) e compare: rotação e cor têm de bater.
+1. **Gravação no formato do estúdio.** Se veio do celular: copie o original para `TRABALHO\originais\` e rode `npm run converter -- "<original>" <slug>` (gera `TRABALHO\public\gravacao-<slug>.mp4`). Vale também para gravação que não é 4K HDR: o conversor gira o vídeo em pé, corta para 9:16 e passa para 30 fps. **A resolução da gravação é mantida** (4K continua 4K, do começo ao vídeo final): a qualidade que entra é a que sai. Extraia um quadro do convertido e do original (`ffmpeg -ss 20 -i <arquivo> -frames:v 1 ...`) e compare: rotação e cor têm de bater.
 2. **Transcrever:** `npm run legendar -- "trabalho\public\gravacao-<slug>.mp4"` (em segundo plano; ~1 min para 2 min de gravação).
 3. **Analisar:** `npm run cortar -- analisar "trabalho\public\gravacao-<slug>.mp4"`
    → `cortes\gravacao-<slug>.cortes.json` e `cortes\gravacao-<slug>.falas.md` (a gravação como tabela de falas com tempo, pausas e o aviso "parece repetir na fala N").

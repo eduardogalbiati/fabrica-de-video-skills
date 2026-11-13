@@ -1,4 +1,5 @@
-import { Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { Img, interpolate, staticFile } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { comAlfa, estilo, flutua } from "../animacoes/estilo";
 import { ds } from "../animacoes/tema";
 import { ease } from "../pecas/util";

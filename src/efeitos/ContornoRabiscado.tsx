@@ -1,5 +1,6 @@
 import { useId } from "react";
-import { AbsoluteFill, interpolate, random, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate, random } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { ds } from "../animacoes/tema";
 import { clamp } from "../pecas/util";
 

@@ -1,4 +1,5 @@
-import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
+import { AbsoluteFill } from "remotion";
+import { Sequence, useVideoConfig } from "./relogio";
 import { z } from "zod";
 import { GuiaZonaSegura } from "./animacoes/Base";
 import { comAlfa } from "./animacoes/estilo";

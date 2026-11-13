@@ -1,4 +1,4 @@
-import { useCurrentFrame, useVideoConfig } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { z } from "zod";
 import { ds, tipo, zonasReels } from "../animacoes/tema";
 import { Destaque } from "./util";

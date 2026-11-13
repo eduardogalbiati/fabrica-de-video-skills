@@ -1,4 +1,5 @@
-import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
+import { Sequence, useCurrentFrame, useVideoConfig } from "../relogio";
 import { z } from "zod";
 import { GuiaZonaSegura } from "../animacoes/Base";
 import { Encerramento } from "../animacoes/Encerramento";

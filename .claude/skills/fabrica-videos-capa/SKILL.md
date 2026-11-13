@@ -33,7 +33,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 3. **Conferir com o guia:** troque `mostrarGuia` para `true` numa cópia em `trabalho\out\` e rode
    `npx remotion still Capa "trabalho\out\capa-guia.png" --props="trabalho\out\<slug>.capa.json" --scale=0.4`.
    Título, rótulo e rosto precisam estar **fora da área vermelha**: só o que fica entre y=420 e y=1500 aparece na miniatura do grid.
-4. **Renderizar:** `npx remotion still Capa "trabalho\out\<slug>-capa.png" --props=roteiros\<slug>.capa.json`
+4. **Renderizar:** `npx remotion still Capa "trabalho\out\<slug>-capa.png" --props=roteiros\<slug>.capa.json` (se o fundo veio de gravação ou foto em 4K, o `npm run capa` manda acrescentar `--scale=2`: a capa sai em 2160×3840, na mesma qualidade)
 5. Olhe a imagem, mande a ele e copie para `entregas\<data>-<slug>\capa.png`.
 
 ## Regras do design system

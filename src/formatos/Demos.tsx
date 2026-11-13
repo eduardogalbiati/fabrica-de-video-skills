@@ -1,4 +1,4 @@
-import { Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import { Sequence, useCurrentFrame, useVideoConfig } from "../relogio";
 import { z } from "zod";
 import { PILAR_PADRAO, pilares, pilarSchema, zonasReels } from "../animacoes/tema";
 import { AntesDepois } from "../pecas/AntesDepois";

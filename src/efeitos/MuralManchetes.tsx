@@ -1,4 +1,5 @@
-import { interpolate, useCurrentFrame } from "remotion";
+import { interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { comAlfa } from "../animacoes/estilo";
 import { ds, fonteDisplay, tipo } from "../animacoes/tema";
 import { ease } from "../pecas/util";

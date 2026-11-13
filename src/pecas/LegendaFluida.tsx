@@ -1,4 +1,5 @@
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { z } from "zod";
 import { comAlfa, destaqueEstilo } from "../animacoes/estilo";
 import { ds, fonteDisplay, zonasReels } from "../animacoes/tema";

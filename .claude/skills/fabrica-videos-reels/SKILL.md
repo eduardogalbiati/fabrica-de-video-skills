@@ -42,7 +42,7 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
 ## 3. Construir → `src/videos/<Nome>.tsx`
 
 1. Copie o esqueleto de `Exemplo.tsx`: schema zod (pilar, video, enquadramento, mostrarGuia, nome, cargo, prints, encerramento, `tempos`), `TelaDividida` por fora, uma `<Sequence>` + `<Cena>` (fade de 6 frames) por cena, `Encerramento` de 2 s no fim. Registre em `src/videos/index.tsx`, dentro de `<Folder name="Videos">` com `calculateMetadata` (duração = `duracaoFala` + 2 s).
-2. Cada cena é **um componente próprio** que chama `useCurrentFrame()` (nunca chame hooks dentro de funções de um objeto/array no componente pai: o frame sai errado).
+2. Cada cena é **um componente próprio** que chama `useCurrentFrame()` (nunca chame hooks dentro de funções de um objeto/array no componente pai: o frame sai errado). Importe `useCurrentFrame`, `useVideoConfig` e `Sequence` de `src\relogio.tsx`, não do `remotion`: os quadros são escritos em 30 por segundo e o relógio cuida do resto quando o vídeo sai em 60.
 3. Peças novas vão para `src/pecas/` (genéricas, com props), seguindo os tokens de `src/animacoes/tema.ts`.
 4. Prints e imagens da peça (arquivos pequenos): salve em `public\<slug>\` **desta pasta** e rode `npm run preparar`.
 5. Fala provisória para testar antes da gravação: grave o texto corrido em `roteiros\<slug>.fala.txt` (UTF-8) e rode
@@ -51,12 +51,12 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
 6. Verifique: `npx tsc` e a folha de contato com o guia ligado:
    `npm run folha -- <Id> src\videos\<slug>.tempos.json` → `TRABALHO\out\folha-<Id>.jpg` (1 quadro do fim de cada cena).
    Olhe a imagem: nada em vermelho (topo 270, base 320, laterais 96, botões à direita), nada sobreposto, textos cabendo.
-7. Renderize a prévia: `npx remotion render <Id> "trabalho\out\previa-<slug>.mp4"` e mande para ele.
+7. Renderize a prévia: `npm run renderizar -- <Id> "trabalho\out\previa-<slug>.mp4" previa` (leve, 540×960; diga que é prévia) e mande para ele.
 
 ## 4. Gravação real → sincronizar e enquadrar
 
 1. Ache a gravação nova (pergunte onde ele salvou). **Copie** o original para `TRABALHO\originais\` (nunca mova nem altere) e converta:
-   `npm run converter -- "trabalho\originais\<arquivo>" <slug>` → `TRABALHO\public\gravacao-<slug>.mp4` (1080×1920, 30 fps, H.264).
+   `npm run converter -- "trabalho\originais\<arquivo>" <slug>` → `TRABALHO\public\gravacao-<slug>.mp4` (em pé, H.264, cores normais, **na resolução e nos quadros por segundo da gravação**: 4K a 60 continua 4K a 60, e o vídeo final sai assim também. HDR é a exceção: vira SDR, e o conversor avisa. Com `ate=12` no fim do comando, converte só os primeiros 12 s, para um teste rápido).
    O conversor confere o arquivo com o `ffprobe` e, se for **4K HDR (iPhone recente)**, trata o HDR com `zscale` + `tonemap` (sem isso a cor sai lavada).
    Na primeira gravação HDR de cada sessão, extraia um quadro do convertido e mostre a ele para comparar com o celular.
 2. `npm run legendar -- "trabalho\public\gravacao-<slug>.mp4"` (em segundo plano, ~1–2 min) → `legendas/gravacao-<slug>.json`.
@@ -70,7 +70,11 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
    **Cabeça inteira no quadro o vídeo todo.** O queixo pode encostar na zona de baixo; a boca nunca.
    Teste inclusive quando ele chega perto da câmera e use o maior offset em que o topo da cabeça nunca sai.
 6. Confira a tarja de nome: se cobrir o rosto, ela fica na metade de cima (já é o padrão do `TelaDividida`).
-7. Render final em segundo plano: `npx remotion render <Id> "trabalho\out\<slug>-final.mp4"`; confira duração/resolução com `ffprobe` e mande o vídeo.
+7. Render final em segundo plano: `npm run renderizar -- <Id> "trabalho\out\<slug>-final.mp4"`; confira duração/resolução com `ffprobe` e mande o vídeo.
+   - **A qualidade que entra é a que sai.** O `renderizar` lê a resolução e os quadros por segundo da gravação e o final sai neles: gravou em 4K a 60, sai em 2160×3840 a 60. Não use `npx remotion render` direto no final: ele sai sempre em 1080×1920 a 30.
+   - **Só reduz com parâmetro**, e só quando ele pedir no chamado da skill (ex.: `/fabrica-videos-reels <slug> 1080p`): `1080p` reduz a resolução e `30fps` reduz os quadros por segundo (`npm run renderizar -- <Id> "<saída>.mp4" 1080p 30fps`). Sem o parâmetro, não reduza.
+   - **HDR não entra na regra:** o Remotion só desenha em cores normais. Se a gravação veio em HDR, diga a ele que o final sai em SDR.
+   - Render em 4K a 60 tem oito vezes mais imagem para desenhar que em 1080p a 30. Avise antes do tempo que vai levar.
 
 ## 5. Entrega
 

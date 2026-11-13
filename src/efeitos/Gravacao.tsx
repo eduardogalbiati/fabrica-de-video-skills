@@ -1,5 +1,6 @@
 import { Video } from "@remotion/media";
-import { AbsoluteFill, interpolate, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, OffthreadVideo, staticFile } from "remotion";
+import { useCurrentFrame, useFpsReal } from "../relogio";
 import { comAlfa } from "../animacoes/estilo";
 import { ds } from "../animacoes/tema";
 
@@ -16,7 +17,8 @@ export const Gravacao: React.FC<{
   filtro?: string;
   mudo?: boolean;
 }> = ({ video, inicio = 0, enquadramento = "50% 50%", filtro, mudo = true }) => {
-  const { fps } = useVideoConfig();
+  // o corte do começo vai para dentro do <Video> em quadros de verdade, não em quadros de autoria (ver src/relogio.tsx)
+  const fps = useFpsReal();
   return (
     <AbsoluteFill style={{ backgroundColor: ds.bg000, filter: filtro }}>
       {video ? (
@@ -37,7 +39,7 @@ export const Gravacao: React.FC<{
 // A pessoa RECORTADA da mesma gravação (WebM com transparência, de `npm run recortar`), alinhada pelo mesmo `inicio`.
 // Vai por cima de tudo que deve passar ATRÁS dela (órbita com camada="atras", texto atrás da cabeça, fundo trocado).
 export const PessoaRecortada: React.FC<{ pessoa: string; inicio?: number }> = ({ pessoa, inicio = 0 }) => {
-  const { fps } = useVideoConfig();
+  const fps = useFpsReal();
   return pessoa ? (
     <OffthreadVideo src={staticFile(pessoa)} transparent muted trimBefore={Math.max(0, Math.round(inicio * fps))} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
   ) : null;

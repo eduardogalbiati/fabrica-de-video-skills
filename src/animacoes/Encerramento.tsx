@@ -1,4 +1,5 @@
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { z } from "zod";
 import { FundoNoite } from "./Base";
 import { ds, glow, marca, pilares, pilarSchema, SUAVE, tipo } from "./tema";

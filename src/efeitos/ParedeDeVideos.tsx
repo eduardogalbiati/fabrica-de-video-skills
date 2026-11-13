@@ -1,4 +1,5 @@
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Img, interpolate, staticFile } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { comAlfa } from "../animacoes/estilo";
 import { ds, tipo } from "../animacoes/tema";
 import { ease } from "../pecas/util";

@@ -15,7 +15,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 
 ## Caso 1: vídeo de rosto em tela cheia (sem animações)
 Não precisa de código por vídeo.
-1. O vídeo precisa estar em `TRABALHO\public\`, em 1080×1920 (se veio do celular: `npm run converter`; se tem pausas e erros: a skill `fabrica-videos-corte` antes).
+1. O vídeo precisa estar em `TRABALHO\public\`, em pé (9:16), na resolução em que foi gravado (se veio do celular: `npm run converter`, que mantém o 4K; se tem pausas e erros: a skill `fabrica-videos-corte` antes).
 2. Transcrever: `npm run legendar -- "<vídeo>"`.
 3. Paginar: `npm run paginar -- legendas\<nome>.json "<vídeo>" <pilar>` → `legendas\<nome>.legenda.json`. O paginador já não termina página em palavra que pede continuação ("direto no / Claude"), junta página de menos de 1 s à anterior quando cabe e cola extensões que o Whisper separa ("arquivo .txt" → "arquivo.txt").
 4. **Revisar o arquivo** (é aqui que a legenda fica boa):
@@ -28,7 +28,7 @@ Não precisa de código por vídeo.
    - `enquadramento`: posição do vídeo no quadro, ex.: `"50% 50%"`.
 5. Conferir um quadro com o guia das zonas: copie o arquivo para `trabalho\out\`, troque `mostrarGuia` para `true` e rode
    `npx remotion still VideoLegendado "trabalho\out\legenda.png" --props="trabalho\out\<arquivo>.json" --frame=60 --scale=0.4`. A legenda não pode cair em área vermelha nem cobrir a boca.
-6. Renderizar: `npx remotion render VideoLegendado "trabalho\out\<slug>-legendado.mp4" --props=legendas\<nome>.legenda.json`.
+6. Renderizar: `npm run renderizar -- VideoLegendado "trabalho\out\<slug>-legendado.mp4" props=legendas\<nome>.legenda.json`. O vídeo sai na resolução da gravação (4K entra, 4K sai); só reduz com `1080p` no fim do comando, a pedido dele.
 7. Mandar a ele e fechar pela skill `fabrica-videos-entrega`.
 
 `npm run paginar` não sobrescreve um arquivo que já existe (você pode ter marcado as palavras-chave). Para gerar de novo, acrescente `refazer` no fim do comando.
@@ -50,7 +50,7 @@ Passos: os mesmos do caso 1, com estas diferenças.
 3. **Posição:**
    - tela dividida: `posicao: "faixa"` e `centroLegenda: 0`.
 4. **Conferir:** quadros com as zonas: `npm run quadros -- VideoLegendado 2s,10s,20s 0.3 legendas\<nome>.fluida.json guia`.
-5. **Renderizar:** `npx remotion render VideoLegendado "<saída>.mp4" --props=legendas\<nome>.fluida.json`.
+5. **Renderizar:** `npm run renderizar -- VideoLegendado "<saída>.mp4" props=legendas\<nome>.fluida.json` (sai na resolução da gravação).
 
 Num reel com animações, use a peça direto, fora do `<TelaDividida>`: `<LegendaFluida blocos={fluida.blocos} acento={acento} posicao="faixa" />`.
 

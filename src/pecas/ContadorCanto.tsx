@@ -1,4 +1,5 @@
-import { interpolate, useCurrentFrame } from "remotion";
+import { interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { cartao, comAlfa } from "../animacoes/estilo";
 import { ds, tipo, zonasReels } from "../animacoes/tema";
 import { ease } from "./util";

@@ -112,6 +112,21 @@ npm run renderizar -- Exemplo trabalho/out/exemplo-orbita.mp4 estilo=orbita
 
 Como criar um estilo novo: `estilos/README.md`.
 
+### A qualidade que entra é a que sai
+
+O vídeo final sai na resolução e nos quadros por segundo da gravação: gravou em 4K a 60, sai em 2160×3840 a 60. Nenhum passo no caminho reduz. O conversor mantém o que veio do celular, e o render final mede a gravação antes de começar:
+
+```bash
+npm run renderizar -- MeuVideo trabalho/out/meu-video-final.mp4              # na qualidade da gravação
+npm run renderizar -- MeuVideo trabalho/out/meu-video-1080.mp4 1080p 30fps   # só reduz se você pedir
+npm run renderizar -- MeuVideo trabalho/out/previa.mp4 previa                # prévia leve, 540×960
+```
+
+- As animações continuam escritas contando 30 quadros por segundo. Um relógio próprio (`src/relogio.tsx`) mantém cada uma no mesmo tempo quando o vídeo sai em 60, só com o movimento mais liso.
+- Vídeo só de animação, sem gravação, sai em 1080×1920 a 30; `4k` e `60fps` no comando forçam.
+- **HDR é a exceção.** O Remotion desenha os quadros num navegador que só trabalha em cores normais, então gravação em HDR é convertida para SDR, e o conversor avisa.
+- Render em 4K a 60 tem oito vezes mais imagem que em 1080p a 30: leva bem mais tempo.
+
 ### Efeitos sobre a gravação
 
 Além das peças, que ocupam a metade de cima da tela, há 21 efeitos que agem sobre o rosto em tela cheia. Catorze funcionam sobre qualquer gravação:

@@ -1,4 +1,5 @@
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { ease } from "../pecas/util";
 
 // Fundo trocado: a gravação começa normal e, a partir de `em`, um círculo cresce atrás da pessoa e troca o

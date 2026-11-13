@@ -1,4 +1,5 @@
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, interpolate } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { ds } from "../animacoes/tema";
 
 // Corte de mergulho: a câmera mergulha rápido no plano `de` (aproxima e borra) e sai já no plano `para`,

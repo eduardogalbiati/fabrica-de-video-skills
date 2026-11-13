@@ -1,4 +1,5 @@
-import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { AbsoluteFill } from "remotion";
+import { useCurrentFrame } from "../relogio";
 import { Assinatura, FundoNoite } from "../animacoes/Base";
 import { ds, tipo } from "../animacoes/tema";
 import { aparece, Destaque, Halo } from "./util";

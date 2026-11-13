@@ -1,4 +1,5 @@
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate, spring } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "../relogio";
 import { cartao, comAlfa } from "../animacoes/estilo";
 import { ds, fonteDisplay, marca, tipo } from "../animacoes/tema";
 import { clamp, ease } from "../pecas/util";
