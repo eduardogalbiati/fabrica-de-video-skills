@@ -85,6 +85,7 @@ Regras que valem para os quatro:
 - **O `foco` é a linha dos olhos** (x do rosto, y dos olhos, de 0 a 1), medida na gravação. Assim o olhar não sobe nem desce quando a imagem aproxima.
 - O `em` do punch e do crash é o quadro em que a palavra forte **começa**, tirado da transcrição.
 - **Vídeo contínuo e tela dividida:** quando o vídeo não é cortado em cenas, use o `ZoomRoteiro`, que recebe a lista de zooms (`{ tipo, de, ate, em }`, um por frase, em quadros do vídeo). Na tela dividida, a `TelaDividida` já faz isso: passe `zooms`, `focoZoom` (a linha dos olhos **dentro da metade de baixo**, de 0 a 1) e, se quiser, `forcaZoom`.
+- **Vídeo com roteiro em blocos:** o padrão por bloco decide qual zoom entra em cada parte (a skill `fabrica-videos-reels`, seção 2, "Padrão por bloco: zoom e som"). A tabela acima explica cada zoom e vale para o vídeo que não cabe nos blocos.
 - **Na tela dividida os zooms vêm com 60% da força** (`forcaZoom` 0,6: zoom-in até 1,08, punch 1,08, zoom-out de 1,17, crash 1,24), porque ali o rosto já está fechado. Confira que a boca não desce para a zona de baixo (y 1600) no crash.
 
 **Recorte da pessoa:** `npm run recortar -- "<vídeo>" <nome>` tira a pessoa do fundo com um modelo que roda no próprio PC (MediaPipe) e entrega `recortes\<nome>-pessoa.webm`, um vídeo com transparência. A `<PessoaRecortada>`, com o mesmo `inicio` da `<Gravacao>`, vai por cima de tudo que deve passar **atrás** da pessoa:

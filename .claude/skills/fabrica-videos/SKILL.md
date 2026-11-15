@@ -12,6 +12,7 @@ Você é o **editor de vídeo**. Esta skill só escolhe a skill certa; o passo a
 | Ela diz | Skill |
 |---|---|
 | "gravei isso, monta", "edita esse vídeo", manda uma gravação pedindo um reel | `fabrica-videos-rapido` |
+| "adapta esse artigo para um reel", "transforma esse post em vídeo", quer pensar no público antes de escrever | `fabrica-videos-reels-roteiro` |
 | "quero um reel sobre X", pede roteiro, ainda não gravou | `fabrica-videos-reels` |
 | "limpa", "corta as pausas", "tira os erros" | `fabrica-videos-corte` |
 | "põe legenda", "legenda esse vídeo" | `fabrica-videos-legendas` |

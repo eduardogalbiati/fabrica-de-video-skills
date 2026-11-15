@@ -11,7 +11,8 @@ Tudo roda no seu computador. As animações são feitas em código (Remotion) e 
 | Você diz | Skill | O que sai |
 |---|---|---|
 | "gravei isso, monta" | `/fabrica-videos-rapido` | Reel animado a partir da gravação, sem roteiro antes |
-| "quero um reel sobre X" | `/fabrica-videos-reels` | Reel com roteiro e storyboard aprovados antes de gravar |
+| "adapta esse artigo para um reel" | `/fabrica-videos-reels-roteiro` | Roteiro em 7 blocos a partir de um conteúdo que já existe, com briefing de público, dor e emoção, três ganchos para escolher e variações por público |
+| "quero um reel sobre X" | `/fabrica-videos-reels` | Reel com roteiro e storyboard aprovados antes de gravar, com zoom e som padronizados por bloco do roteiro |
 | "limpa essa gravação" | `/fabrica-videos-corte` | Vídeo sem silêncios, erros nem tomadas repetidas, com relatório |
 | "põe legenda" | `/fabrica-videos-legendas` | Legenda queimada, com a palavra-chave na cor da marca: frases inteiras numa tarja, ou fluida, palavra por palavra |
 | "que animação dá para pôr aqui?" | `/fabrica-videos-peca` | Uma peça da biblioteca, ou uma nova no padrão da marca |
