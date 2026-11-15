@@ -43,6 +43,18 @@ Mostre numa tabela: público, o que já sabe, dor, o que sente no fim, CTA.
 - Dor que você deduziu é **hipótese** até ele confirmar. Diga isso na tabela.
 - Um público por vídeo. Mais de um público → variações (etapa 5).
 
+### Pesquisa de aderência: qual público responde melhor
+Quando ele quiser gravar para um público só e houver dúvida entre os três, pesquise antes de escolher. A ordem vai da evidência mais forte para a mais fraca:
+
+1. **Os números dele.** Se o assunto já foi publicado, comece pelos vídeos anteriores: views, alcance, salvamentos, envios, comentários e seguidores ganhos. Leia o gesto: muito salvamento indica quem pretende fazer aquilo depois; muito envio, quem conhece alguém que precisa; comentário, quem quer o seu. Olhe também quem segue a conta (profissão ou categoria, quando houver). Diga o que os dados não separam e se o vídeo foi impulsionado.
+2. **A busca, em português primeiro.** Procure como cada público fala do assunto no idioma e no país de quem vai assistir: comunidades, fóruns, vídeos, portais e pesquisas locais. É dali que saem a dor nas palavras dela e o tamanho do interesse. Fonte em outro idioma entra depois, como complemento, e a resposta diz de que país é cada número.
+3. **O que só ele tem.** Peça os prints das métricas dos vídeos anteriores e, se ele puder esperar um dia, sugira uma enquete nos Stories perguntando quem é quem.
+
+Entregue uma tabela com uma linha por público: o sinal de fora, o sinal nos dados dele, se ela consegue agir sozinha com o que o vídeo mostra e se está no público que ele quer alcançar. Depois, uma recomendação com os motivos e uma seção curta com o que a pesquisa não consegue dizer.
+- Número só com fonte e país. Número de blog de ferramenta, sem estudo por trás, fica de fora.
+- Com o público escolhido, refaça a busca só para ele: a dor e as palavras que saírem dali alimentam os ganchos da etapa 3.
+- A pesquisa informa a escolha. Quem escolhe é ele.
+
 ## 3. Ganchos
 Proponha **três ganchos de famílias diferentes** (tabela "Famílias de gancho" do glossário), escolhidas pelo que o público já sabe. Para cada um:
 - a **fala** (a frase dita);
