@@ -37,6 +37,7 @@ Você é o **editor de vídeo**. Comandos no terminal, na raiz do projeto. `TRAB
 
    Regras: reaproveite peças de `src\pecas\` antes de criar (peça nova: a skill `fabrica-videos-peca`); nada de emoji piscando, bounce ou efeito fora do design system; um acento por vídeo.
 5. **Âncoras:** `roteiros\<slug>.ancoras.json` com as primeiras palavras de cada batida, copiadas da transcrição (sem nomes próprios). Depois
+   **Blocos, zoom e som:** depois de ler a fala, marque a que bloco cada frase pertence (gancho, corpo, loop aberto, entrega, CTA; os nomes estão no glossário da skill `fabrica-videos-reels-roteiro`) e aplique o padrão de zoom e som por bloco da skill `fabrica-videos-reels`, seção 2. Gravação sem roteiro nem sempre tem todos os blocos: use os que existirem e não force um loop que não foi dito. No storyboard, as colunas bloco, zoom e som vão ao lado da peça.
    `npm run batidas -- legendas\gravacao-<slug>-limpa.json roteiros\<slug>.ancoras.json src\videos\<slug>.tempos.json "<vídeo limpo>"`
    (com o vídeo no fim, a `duracaoFala` não passa da duração dele; sem ele, a fala saía 0,3 s mais longa que o vídeo).
 6. **Construir** `src\videos\<Nome>.tsx` como na skill `fabrica-videos-reels`, seção 3 (esqueleto do `Exemplo.tsx`, registro em `src\videos\index.tsx`, prop `video` = `"gravacao-<slug>-limpa.mp4"`). Enquadramento: a skill `fabrica-videos-reels`, seção 4, item 5.
@@ -56,6 +57,7 @@ A pessoa fica em tela cheia o tempo todo. Nos momentos-chave entra um efeito sob
   - Na tela entram só palavras que foram ditas (nomes, a frase do fato). Afirmação que você não consegue conferir não vira texto: vira pergunta na mensagem do storyboard.
 - **Zooms de edição** (`ZoomIn`, `PunchZoom`, `ZoomOut`, `CrashZoom`): entram por frase e **não contam** no limite de efeitos acima, porque não põem nada na tela. No storyboard, uma coluna "zoom" ao lado do efeito, seguindo a tabela "Zooms de edição: quando usar cada um" do `pecas.md` (na pasta da skill `fabrica-videos-peca`):
   - zoom-in na frase que prepara algo importante; punch na palavra forte de uma frase de efeito; zoom-out na frase que abre uma explicação; crash só na quebra de padrão, uma ou duas vezes por vídeo;
+  - **primeiro o padrão por bloco** (a skill `fabrica-videos-reels`, seção 2, "Padrão por bloco: zoom e som"): gancho, loops e entrega já têm o zoom definido. As regras abaixo valem para o vídeo que não cabe nos blocos;
   - pelo menos uma frase sem zoom entre dois zooms, e nada de zoom na mesma cena de um efeito que já mexe na imagem (`ZoomCamera`, `CorteMergulho`, `Vertigem`, `RecuoEditor`);
   - o `foco` é a linha dos olhos, medida na gravação (o mesmo ponto para o vídeo inteiro).
   - Valem também no formato rosto em tela cheia só com legenda e na **tela dividida** (prop `zooms` da `TelaDividida`, com 60% da força).

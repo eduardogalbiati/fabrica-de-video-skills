@@ -29,6 +29,7 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
 
 ## 1. Roteiro → `roteiros/<slug>.md`
 
+- Se o vídeo nasce de um conteúdo que já existe (artigo, post, transcrição), ou se ele quiser pensar no público e em variações antes de escrever, comece pela skill `fabrica-videos-reels-roteiro`, que entrega o roteiro em 7 blocos, já neste formato. Depois continue daqui, na aprovação.
 - Monte o roteiro aqui, em conversa com o cliente. Pergunte: tema (ou links/vídeo de referência), pilar (um dos temas da marca), duração alvo (30–60 s ≈ 2,5 palavras/s).
 - Estrutura igual a `roteiros/exemplo.md`: blocos com início estimado, fala, card; dicionário de analogias se o público for leigo; **texto corrido para gravar**; prints necessários; **fatos checados com links**.
 - Voz (ajuste à pessoa; as regras dela ficam com a marca): primeira pessoa, frases curtas, números concretos; gancho nos 3 primeiros segundos; nunca "revolucionário"/"o futuro chegou"; fecha com pergunta + CTA. Alarme vira pergunta, não afirmação. Não invente notícia.
@@ -38,6 +39,29 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
 - Por batida (troca visual a cada 2–3 s): tempo, frase, o que aparece em cima (área 1080×960).
 - Reaproveite peças de `src/pecas/` antes de criar novas: `RedeNeural` + `Bisturi` (o "cérebro" da IA), `GradeConexoes`, `LoopPensando`, `Lupa`, `ContadorBarra`, `TrocaPrints`, `TextoRiscado` (modos `riscar`/`somar`), `OlhoRiscado`, `LinhaVersoes`; helpers `TituloCena`, `Halo`, `RotuloMono`, `aparece` em `util.tsx`.
 - `ancoras.json`: `{ "cena": "primeiras palavras faladas nela" }` **na ordem da fala**. Evite nomes próprios nas âncoras (o Whisper erra: "Qwen"→"quen", "Claude"→"clou", "OpenAPI"→"OpenAI", e também "Vercel", "MCP", "JSON"). Batidas internas de uma cena (ex.: o momento de riscar) também viram âncoras.
+
+### Padrão por bloco: zoom e som
+Quando o roteiro vem em blocos (a skill `fabrica-videos-reels-roteiro`), o storyboard diz a que bloco cada batida pertence, e o zoom da gravação e o som seguem esta tabela:
+
+| Bloco | Zoom | Som |
+|---|---|---|
+| Gancho | `PunchZoom` na palavra forte | `abertura` no primeiro quadro |
+| Corpo 1 | sem zoom | `tecla` a cada item que entra na tela |
+| Loop 1 | `ZoomIn` durante a frase | nenhum |
+| Corpo 2 | sem zoom; volta em corte seco | `tecla` a cada item que entra na tela |
+| Loop 2 | `CrashZoom`, o único do vídeo | `whoosh` no quadro do salto |
+| Entrega | `PunchZoom` no número ou na resposta | `blip` quando o número ou a resposta aparece |
+| CTA | sem zoom | nenhum |
+
+- **Zoom nas dobradiças, corpo respira.** Gancho, loops e entrega têm zoom; os corpos, não. Assim sobra sempre uma frase sem zoom entre dois zooms.
+- O zoom age na gravação do rosto: em tela cheia, ou na metade de baixo da tela dividida (prop `zooms` da `TelaDividida`, com 60% da força). O que aparece na metade de cima continua sendo escolhido pela fala, no `pecas.md` (na pasta da skill `fabrica-videos-peca`).
+- Se o número da Entrega cair na frase logo depois do Loop 2, o `PunchZoom` sai e fica só o `blip`.
+- Reel curto, com um loop só: esse loop leva o padrão do Loop 2.
+- Cena com efeito que já mexe na imagem (`ZoomCamera`, `CorteMergulho`, `Vertigem`, `RecuoEditor`): o efeito fica e o zoom do bloco sai.
+- Vídeo sem rosto (demo, tutorial mudo, só voz): não há zoom de bloco; os sons valem.
+- Roteiro sem blocos: marque a que bloco cada fala pertence, pelo sentido, e aplique o padrão. Se o vídeo não cabe nos blocos (uma lista de curiosidades, por exemplo), vale a escolha frase a frase da tabela "Zooms de edição" do `pecas.md` (na pasta da skill `fabrica-videos-peca`).
+- O padrão vale sem perguntar. Ele desliga no pedido, com "sem som" ou "sem zoom". Para fugir do padrão num bloco, diga o porquê no storyboard.
+- Como aplicar cada zoom: tabela "Zooms de edição" do `pecas.md` (na pasta da skill `fabrica-videos-peca`). Como pôr os sons: seção "Sons", mais abaixo.
 
 ## 3. Construir → `src/videos/<Nome>.tsx`
 
@@ -103,7 +127,9 @@ Diga em uma linha em que etapa está e siga. Etapas 1 e 2 são conversas: propon
 - Tela final de série: `src/pecas/TelaFinalReels.tsx` no lugar do `Encerramento`, 4 s depois da fala (duração = `duracaoFala` + `telaFinalSeg`).
   Dois espaços 9:16 vazios (400×711) que ele cobre com reels no aplicativo de edição: um para o próximo capítulo (o último volta ao primeiro), outro para o reels que originou a série.
 
-## Sons (opcional, só se ele pedir ou já tiver aprovado)
+## Sons (padrão por bloco)
+
+- Em que bloco entra cada som: seção 2, "Padrão por bloco: zoom e som". Sem os arquivos de som na pasta, o vídeo sai sem som de efeito: avise e siga.
 
 - Quatro sons curtos em uma pasta de sons dentro de `public` (traga os seus, com licença clara: o repositório não inclui sons): `abertura.mp3` (riser no gancho, volume ~0,35), `tecla.mp3` (a cada item que entra, ~0,3),
   `whoosh.mp3` (na virada/zoom, ~0,2), `blip.mp3` (quando chega o número ou a resposta final, ~0,3).
